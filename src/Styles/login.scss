@@ -100,6 +100,24 @@ body {
     font-size: medium;
 
   }
+  // signup.scss
+@import "~react-toastify/dist/ReactToastify.css";
+
+// Add your custom styles for the toast notifications here
+.Toastify__toast {
+    font-size: 16px; // Adjust this to your preferred medium font size
+}
+
+.Toastify__toast--error {
+    background-color: #f44336; // Red background for error
+    color: #ffffff; // White text for better contrast
+}
+
+.Toastify__toast--success {
+    background-color: #4caf50; // Green background for success
+    color: #ffffff; // White text for better contrast
+}
+
 
 
 

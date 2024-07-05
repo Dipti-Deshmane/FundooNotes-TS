@@ -3,7 +3,7 @@ body {
     background-image: url('../Assets/backgroundImg.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center;    
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -48,7 +48,7 @@ body {
 } 
 .signupform-box:before
  {
-	 background-image: url("https://i.postimg.cc/8cnYLpfc/ddddd.jpg"); 
+     background-image: url("https://i.postimg.cc/8cnYLpfc/ddddd.jpg"); 
 	 width: 100%; 
 	 height: 100%;
 	 background-size: cover; 
@@ -61,7 +61,8 @@ body {
 	 z-index: -1; 
 	 display: block; 
 	 filter: blur(2px); 
-	} 
+ } 
+
 .signupform-box .header-text { 
 	font-size: 32px; 
 	font-weight: 600; 
@@ -121,6 +122,24 @@ body {
 .alreadyAcc{
     color: white;
     font-size: medium;
+}
+
+// signup.scss
+@import "~react-toastify/dist/ReactToastify.css";
+
+// Add your custom styles for the toast notifications here
+.Toastify__toast {
+    font-size: 16px; // Adjust this to your preferred medium font size
+}
+
+.Toastify__toast--error {
+    background-color: #f44336; // Red background for error
+    color: #ffffff; // White text for better contrast
+}
+
+.Toastify__toast--success {
+    background-color: #4caf50; // Green background for success
+    color: #ffffff; // White text for better contrast
 }
 
 @media only screen and (min-width: 1025px) and (max-width: 1440px) {
