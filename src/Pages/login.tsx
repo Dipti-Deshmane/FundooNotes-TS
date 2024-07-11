@@ -31,7 +31,7 @@ const Login = () => {
           if (response.status === 200) {
             localStorage.setItem('token', response.data.id);
             toast.success("User logged in successfully!", { position: 'top-center' });
-            navigate('/Note');
+            navigate('/dashboard');
           }
         } catch (error: any) {
           console.error('Login failed:', error);
@@ -41,45 +41,26 @@ const Login = () => {
 
     return (
       <div className="login-container">
-        <ToastContainer />
-        <form onSubmit={handleSubmit} className="form-box">
-          <h1 className="header-text">Login</h1>
-
-          <div className="email">
-            <input
-              type="text"
-              className="inputlogin"
-              id="email"
-              name="email"
-              placeholder="UserName"
-              value={loginData.email}
-              onChange={handleChange}
-              required
-            />
+      <div className="login-box">
+          <div className="above-form">
+              <h2>Login</h2>
+          <form onSubmit={handleSubmit}>
+              <div className="input-group">
+                  <input className="login-input" type="text" id="email" name="email" placeholder="Enter your email" value={loginData.email} onChange={handleChange} required/>
+              </div>
+              <div className="input-group">
+                  <input className="login-input" type="password" id="password" name="password"  placeholder="Enter yout password" value={loginData.password} onChange={handleChange} required/>
+              </div>
+              <div className="links">
+                  <a href="">Forgot Password?</a>
+                  <a href="/signup">Create Account</a>
+              </div>
+              <button id="submit-button" type="submit">Login</button>
+          </form>
           </div>
-          <div className="password">
-            <input
-              type="password"
-              id="password"
-              className="inputlogin"
-              name="password"
-              placeholder="Password"
-              value={loginData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <a className="signuplink" href="/signup">
-              Don't have an account? Sign up
-            </a>
-          </div>
-          <button className="loginbutton" type="submit">
-            Login
-          </button>
-        </form>
       </div>
-    );
-};
+  </div>
+);
+}
 
 export default Login;

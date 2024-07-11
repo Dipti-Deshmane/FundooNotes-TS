@@ -1,9 +1,10 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import './../Styles/signup.scss';
 import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import base_url from "../API/baseUrl";
+import register from "./../Assets/register.png";
 
 interface RegisterState {
     firstName: string;
@@ -78,44 +79,34 @@ const SignUp = () => {
     };
 
     return (
-        <div className="signup-container">
-            <ToastContainer />
-            <form className="signupform-box" onSubmit={handleSubmit}>
-
-                <h1 className="header-text">Sign Up</h1>
-
-                <div className="fullname">
-                    <input type="text" id="firstName" className='inputSignup firstname'
-                        name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange}
-                        required />
-                    <input type="text" id="lastName" className='inputSignup firstname'
-                        name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange}
-                        required />
+        <div className="register-container">
+        <div className="form-container">
+            <div className='form-content'>
+            <h1>Create your Account</h1>
+            <form> 
+                <div className="name-container">
+                    <input type="text" name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} required />
+                    <input type="text" name="lastName" placeholder="Last Name" value={formData.lastName}  onChange={handleChange} required />
                 </div>
-
-                <div className="email">
-                    <input type="text" id="email" className='inputSignup'
-                        name="email" placeholder="Email" value={formData.email} onChange={handleChange}
-                        required />
+                <input type="text" name="email" placeholder="Enter your email" value={formData.email}  onChange={handleChange} required />
+            <small>you can use letters, numbers & periods</small>
+                <input type={showPassword ? "text" : "password"} name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
+                <small>Use 8 or more characters with a mix of letters, numbers & symbols</small>
+                <input type={showPassword ? "text" : "password"} name="confirmPassword" placeholder="Confirm" value={formData.confirmPassword} onChange={handleChange} required />
+                <div className="show-password">
+                    <input type="checkbox" name="showPassword" onChange={toggleShowPassword}  />
+                    <label>Show Password</label>
                 </div>
-                <div className="password">
-                    <input type={showPassword ? "text" : "password"} id="password" className='inputSignup'
-                        name="password" placeholder="Password" value={formData.password} onChange={handleChange}
-                        required />
-                </div>
-                <div className="cnfpassword">
-                    <input type={showPassword ? "text" : "password"} id="confirmPassword" className='inputSignup'
-                        name="confirmPassword" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleChange}
-                        required />
-                </div>
-
-                <div>
-                    <a className="alreadyAcc" href="/login">Already have an account? Login</a>
-                </div>
-                <button className="signupbutton" type="submit">Sign Up</button>
+                <button onClick={handleSubmit} type="submit">Next</button>
+                <a href="/login">Sign in instead</a>
             </form>
+            </div>
+        <div className="image-container">
+            <img src={register} alt="Google Account Illustration" />
         </div>
-    );
+        </div>
+    </div>
+);
 }
 
 export default SignUp;

@@ -1,0 +1,185 @@
+.header {
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  position: fixed;
+  padding: 10px;
+  height: 45px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+  background-color: white;
+  z-index: 10;
+
+  .mainMenu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.2%;
+
+    button {
+      border: none;
+      padding: 0;
+      color: #36454F;
+      background-color: white;
+    }
+
+    &:hover {
+      background-color: #C8C8C8;
+      border-radius: 100%;
+
+      .menu svg {
+        background-color: #C8C8C8;
+      }
+    }
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+
+    .logo {
+      height: 40px; // Adjust according to your logo height
+      margin-right: 5px; // Adjust margin as needed
+      position: fixed;
+    }
+
+    .logo-text {
+      font-size: 20px; // Adjust font size as needed
+      color: gray;
+      position: fixed;
+      margin-left: 40px;
+      font-family: calibri;
+      font-weight: 550rem;
+    }
+  }
+
+  .search-container {
+    display: flex;
+    margin-top: -30px;
+    align-items: center;
+
+    .search-input {
+      padding: 8px;
+      border: 1px solid #f5ecec;
+      background-color: #F5F5F5;
+      border-radius: 4px;
+      font-size: small;
+      font-weight: 500;
+      outline: none;
+      width: 650px;
+      height: 30px;
+      margin-top: 30px;
+      box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
+      margin-left: 230px;
+    }
+  }
+
+  .refresh {
+    margin-left: 150px;
+    margin-right: 20px;
+    margin-top: 10px;
+  }
+
+  .layout-toggle {
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    color: #555;
+  }
+
+  .setting {
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+
+  .user-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    margin-top: 6px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: purple;
+    color: white;
+    font-weight: 600;
+    font-size: 19px;
+    cursor: pointer;
+    position: fixed;
+    margin-left: 1280px;
+  }
+
+  .user-card {
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    width: 180px; // Adjust the width as per your requirement
+    background-color: #ffffff;
+    border: 1px solid #d3d3d3;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); // Add shadow for card effect
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    margin-right: 60px;
+
+    .user-info {
+      height: 40px;
+      font-size: 15px;
+      border-bottom: 2px solid #d3d3d3;
+      align-content: center;
+      text-align: center;
+      color: #36454F;
+
+      &:hover {
+        background-color: #f0f0f0; // Change background color on hover
+      }
+    }
+
+    .profile-button-container {
+      height: 40px;
+      align-content: center;
+      text-align: center;
+      border-bottom: 2px solid #d3d3d3;
+      font-size: 15px;
+
+      &:hover {
+        background-color: #f0f0f0; // Change background color on hover
+      }
+    }
+
+    .sign-out {
+      height: 40px;
+      text-align: center;
+      align-content: center;
+      font-size: 15px;
+
+      p {
+        color: #007bff; // Add color to the sign-out text
+        cursor: pointer; // Change cursor to pointer on hover
+
+        &:hover {
+          text-decoration: underline; // Underline text on hover
+        }
+      }
+
+      &:hover {
+        background-color: #f0f0f0; // Change background color on hover
+      }
+    }
+
+    .profile-picture {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; // Ensures the image covers the entire circle without stretching
+      border-radius: 50%;
+    }
+
+    .profile-picture-label {
+      cursor: pointer;
+      color: #494949; // Change color as needed
+    }
+  }
+}
