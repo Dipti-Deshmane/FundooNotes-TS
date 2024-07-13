@@ -14,6 +14,8 @@
 
 .main {
   display: flex;
+  position: relative;
+
 }
 
 .notes-container {
@@ -21,6 +23,15 @@
   margin-left: 10%;
   width: calc(100vw - 525px);
   height: calc(100vh - 74px);
+  flex-grow: 1;
+  transition: margin-left 0.3s ease, z-index 0.3s ease;
+  position: relative;
+  z-index: 1; // Default z-index when sidebar is open
+
+    &.shifted {
+      margin-left: -2%; 
+      z-index: 0;
+    }
 }
 
 .add-note {
@@ -56,6 +67,7 @@
   display: flex;
   flex-wrap: wrap;
   width: 120%;
+  overflow: visible;
 }
 
 .pinned-header {
@@ -81,7 +93,7 @@
 
   .card {
     width: 220px;
-    min-height: 80px;
+    min-height: 117px;
     height: auto;
     flex-direction: column;
     justify-content: space-between;
@@ -144,8 +156,6 @@
   .button-container {
     display: flex;
     position: absolute;
-    justify-content: space-evenly;
-    bottom: 0;
     left: 0;
     width: 100%;
     padding: 5px;
@@ -158,6 +168,7 @@
       margin: 0;
       border-radius: 100%;
       height: 30px;
+      margin-left: 2%;
 
       &:hover {
         color: #000;
@@ -171,7 +182,7 @@
   }
 
   .button-container-wrapper {
-    display: none;
+    // display: none;
   }
 
   &:hover .button-container-wrapper {

@@ -6,7 +6,12 @@
   top: 67px;
   left: 0;
   bottom: 0;
-  z-index: 100;
+
+ 
+
+  &.collapsed {
+    width: 60px; // Adjust width as needed for collapsed state
+  }
 
   .sidebar-options {
     display: flex;

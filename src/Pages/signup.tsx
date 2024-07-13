@@ -98,7 +98,7 @@ const SignUp = () => {
                     <label>Show Password</label>
                 </div>
                 <button onClick={handleSubmit} type="submit">Next</button>
-                <a href="/login">Sign in instead</a>
+                <a href="/">Sign in instead</a>
             </form>
             </div>
         <div className="image-container">
