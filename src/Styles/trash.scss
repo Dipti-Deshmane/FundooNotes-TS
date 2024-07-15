@@ -23,3 +23,35 @@
     margin-top: 13%;
     color: #e4dede;
 }
+.trash-notes-container{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 90%;
+    overflow: visible;
+}
+/* dashboard.scss */
+
+.notes-container {
+    display: flex;
+    flex-direction: column;
+  
+    &.horizontal .Trash-notes-container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  
+    &.vertical .Trash-notes-container {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .Trash-notes-container {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  
+  /* Add any additional styles to adjust the note layout and appearance */
+  

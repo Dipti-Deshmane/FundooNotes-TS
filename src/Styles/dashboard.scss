@@ -27,12 +27,39 @@
   flex-grow: 1; 
   transition: margin-left 0.3s ease, z-index 0.3s ease;
   position: relative;
-  z-index: 1; // Default z-index when sidebar is open
+  z-index: 1;
+
+  &.horizontal .pinned-notes-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  &.vertical .pinned-notes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .pinned-notes-container {
+    display: flex;
+    flex-direction: column;
+  }  
+  .card {
+    width: 500px;
+    min-height: 117px;
+    height: auto;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative; 
+    border-radius: 8px;
+    padding: 5px;
+  }
 
     &.shifted {
       margin-left: -2%; 
       z-index: 0;
     }
+
 }
 
 .add-note {
@@ -191,3 +218,6 @@
   }
 }
 
+
+
+ 

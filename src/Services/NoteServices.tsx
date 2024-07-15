@@ -7,6 +7,7 @@ export interface Note {
   description: string;
   isArchived?: boolean;
   isDeleted?: boolean;
+  color?:string;
   [key: string]: any;
 }
 
@@ -95,6 +96,21 @@ setNoteToUnTrash : (noteIdList: number[], token: string) => {
   });
 },
 
+setColor: async (noteIdList: number[], token: string, color: string) => {
+  try {
+    await axios.post(
+      `${base_url}/notes/changesColorNotes`,
+      { noteIdList, color },
+      { headers: { Authorization: token } }
+    );
+  } catch (error) {
+    console.error("Error in setting note color", error);
+    throw error;
+  }
+},
+
+
+
 fetchTrashNotes: async (token: string): Promise<{ data: { data: Note[] } }> => {
   const response = await axios.get(`${base_url}/notes/getTrashNotesList`, {
     headers: {
@@ -113,9 +129,8 @@ fetchArchiveNotes: async (token: string): Promise<{ data: { data: Note[] } }> =>
   return response.data;
 },
 
-
-
 };
+
 
 
 export default NoteServices;

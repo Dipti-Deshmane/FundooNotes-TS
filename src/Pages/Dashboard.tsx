@@ -20,6 +20,7 @@ const Dashboard: React.FC<DashboardProps> = (props) => {
     description: ''
   });
   const [pageTitle, setPageTitle] = useState('');
+  const [layoutMode, setLayoutMode] = useState<'horizontal' | 'vertical'>('horizontal');
 
   const token = localStorage.getItem('token') || '';
 
@@ -98,13 +99,30 @@ const Dashboard: React.FC<DashboardProps> = (props) => {
     }
   };
 
+  const handleColor = async (noteId: number,color:string) => {
+    try {
+      await NoteServices.setColor([noteId], token,color);
+      setNotes((prevNotes) =>
+        prevNotes.filter((note) => note.id !== noteId)
+      );
+      console.log('Note color applied');
+    } catch (error) {
+      console.error('Error color note:', error);
+    }
+  };
+
+ 
+  const toggleLayoutMode = () => {
+    setLayoutMode(layoutMode === 'horizontal' ? 'vertical' : 'horizontal');
+  };
+
   return (
     <div className='note-dashboard'>
       <div className='App'>
-        <Header toggleSidebar={toggleMenubar} pageTitle={pageTitle} />
+        <Header toggleSidebar={toggleMenubar} pageTitle={pageTitle} toggleLayoutMode={toggleLayoutMode} layoutMode={layoutMode} />
         <div className='main'>
           <Sidebar isClosed={isMenuSidebar} setPageTitle={setPageTitle} />
-          <div className={`notes-container ${isMenuSidebar ? 'shifted' : ''}`}>
+          <div className={`notes-container ${isMenuSidebar ? 'shifted' : ''} ${layoutMode}`}>
             <AddNote
               newNote={newNote}
               onTitleChange={handleNoteTitleChange}
@@ -112,7 +130,7 @@ const Dashboard: React.FC<DashboardProps> = (props) => {
               onAddNote={addNote}
             />
             {/* Displaying notes */}
-            <div className='pinned-notes-container'>
+            <div className={`pinned-notes-container ${layoutMode}`}>
               {notes.length === 0 ? (
                 <div className='BackImg'>
                   <LightbulbOutlinedIcon style={{ fontSize: 120 }} />
@@ -128,6 +146,7 @@ const Dashboard: React.FC<DashboardProps> = (props) => {
                       updateNote={updateNote}
                       archiveNote={handleArchive}
                       trashNote={handleTrash}
+                      colorNote={handleColor}
                     />
                   ))
               )}

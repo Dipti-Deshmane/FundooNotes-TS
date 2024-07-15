@@ -13,6 +13,7 @@ interface SidebarProps {
   setPageTitle: (title: string) => void;
 }
 
+
   const Sidebar: React.FC<SidebarProps> = ({ isClosed, setPageTitle }) => {
     const location = useLocation();
   
