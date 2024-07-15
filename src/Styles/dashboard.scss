@@ -6,6 +6,7 @@
 }
 
 .App {
+  
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -23,7 +24,7 @@
   margin-left: 10%;
   width: calc(100vw - 525px);
   height: calc(100vh - 74px);
-  flex-grow: 1;
+  flex-grow: 1; 
   transition: margin-left 0.3s ease, z-index 0.3s ease;
   position: relative;
   z-index: 1; // Default z-index when sidebar is open
@@ -189,3 +190,4 @@
     display: block;
   }
 }
+

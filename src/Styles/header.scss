@@ -115,7 +115,8 @@
     position: absolute;
     top: 50px;
     right: 20px;
-    width: 180px; // Adjust the width as per your requirement
+    width: 26%; 
+    height: 366%;
     background-color: #ffffff;
     border: 1px solid #d3d3d3;
     border-radius: 8px;
@@ -138,17 +139,25 @@
       }
     }
 
-    .profile-button-container {
-      height: 40px;
-      align-content: center;
-      text-align: center;
-      border-bottom: 2px solid #d3d3d3;
-      font-size: 15px;
+    .profile-picture-label{
+      width: 5%;
+      margin-top: 2%;
+      height: 21%;
+      border-radius: 50%;
+      background-color: purple;
+      color: white;
+      font-weight: 600;
+      font-size: 19px;
+      cursor: pointer;
+      position: fixed;
+    
 
       &:hover {
         background-color: #f0f0f0; // Change background color on hover
       }
     }
+
+   
 
     .sign-out {
       height: 40px;
