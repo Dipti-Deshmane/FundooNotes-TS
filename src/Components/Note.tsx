@@ -1,11 +1,10 @@
 import React from "react";
 import { Note as NoteType } from "./../Services/NoteServices";
 import NoteButtons from "./NoteButtons";
-import NoteServices from "./../Services/NoteServices";
 
 export interface NoteProps {
   note: NoteType;
-  updateNote?: (id: number, updatedNote: NoteType) => void;
+  updateNote?: (noteId: number, updatedNote: NoteType) => void;
   archiveNote?: (noteId: number) => void;
   trashNote?: (noteId: number) => void;
   unarchiveNote?: (noteId: number) => void;
@@ -30,32 +29,32 @@ const Note: React.FC<NoteProps> = ({
 
   const handleArchiveClick = () => {
     if (note.id !== undefined) {
-      archiveNote?.(note.id); // Use optional chaining
+      archiveNote?.(note.id);
     }
   };
 
   const handleTrashClick = () => {
     if (note.id !== undefined) {
-      trashNote?.(note.id); // Use optional chaining
+      trashNote?.(note.id);
     }
   };
 
   const handleUnarchiveClick = () => {
     if (note.id !== undefined) {
-      unarchiveNote?.(note.id); // Use optional chaining
+      unarchiveNote?.(note.id);
     }
   };
 
   const handleColorSelection = (color: string) => {
     if (note.id !== undefined) {
-      colorNote?.(note.id, color); // Pass both noteId and color
+      colorNote?.(note.id, color);
     }
   };
 
   return (
     <div className="header-card">
       <div className="note-card">
-        <div className="card">
+        <div className="card" style={{ backgroundColor: note.color }}>
           <div className="note-card-body">
             <div
               className="card-title"
@@ -75,7 +74,7 @@ const Note: React.FC<NoteProps> = ({
             </div>
             {note.id !== undefined && (
               <NoteButtons
-                noteId={note.id} // Pass note.id as noteId prop to NoteButtons
+                noteId={note.id}
                 archive={handleArchiveClick}
                 trash={handleTrashClick}
                 unarchive={handleUnarchiveClick}

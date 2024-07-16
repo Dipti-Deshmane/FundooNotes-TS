@@ -44,14 +44,16 @@ const NoteServices = {
     }
   },
 
-   updateNote : async (id: number, updatedNote: Note, token: string) => {
+  updateNote: async (noteId: number, updatedNote: Note, token: string): Promise<void> => {
     const config = {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `${token}` },
     };
-    await axios.put(`${base_url}/notes/updateNotes/${id}`, updatedNote, config);
+    await axios.post(`${base_url}/notes/updateNotes`, {
+      noteId,
+      title: updatedNote.title,
+      description: updatedNote.description,
+    }, config);
   },
-
-
   
 setNoteToArchive : (noteIdList: number[], token: string) => {
   return axios.post(`${base_url}/notes/archiveNotes`, {

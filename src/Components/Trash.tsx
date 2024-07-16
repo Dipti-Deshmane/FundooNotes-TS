@@ -5,7 +5,6 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import TrashImg from "./../Assets/trashImg.png";
 import "./../Styles/trash.scss";
 
 const Trash: React.FC = () => {

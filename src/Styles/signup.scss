@@ -44,7 +44,7 @@
 
 .register-container .form-container form input {
     margin: 0.5rem 0;
-    padding: 0.5rem;
+    padding: 0.8rem;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
@@ -52,6 +52,8 @@
 .register-container .form-container form small {
     color: #777;
     margin-bottom: 0.5rem;
+    text-align: justify;
+
 }
 
 .register-container .form-container form .show-password {

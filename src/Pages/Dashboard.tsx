@@ -66,10 +66,10 @@ const Dashboard: React.FC<DashboardProps> = (props) => {
     setSidebarMenu(!isMenuSidebar);
   };
 
-  const updateNote = async (id: number, updatedNote: NoteType) => {
+  const updateNote = async (noteId: number, updatedNote: NoteType) => {
     try {
-      await NoteServices.updateNote(id, updatedNote, token);
-      fetchNotes(); // Fetch notes after updating
+      await NoteServices.updateNote(noteId, updatedNote, token);
+      fetchNotes();
     } catch (error) {
       console.error('Error updating note:', error);
     }
@@ -86,24 +86,22 @@ const Dashboard: React.FC<DashboardProps> = (props) => {
       console.error('Error archiving note:', error);
     }
   };
-
   const handleTrash = async (noteId: number) => {
     try {
       await NoteServices.setNoteToTrash([noteId], token);
-      setNotes((prevNotes) =>
-        prevNotes.filter((note) => note.id !== noteId)
-      );
-      console.log('Note is deleted');
+      setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId));
+      console.log("Note is deleted");
     } catch (error) {
       console.error('Error deleting note:', error);
     }
   };
-
-  const handleColor = async (noteId: number,color:string) => {
+  const handleColor = async (noteId: number, color: string) => {
     try {
-      await NoteServices.setColor([noteId], token,color);
+      await NoteServices.setColor([noteId], token, color);
       setNotes((prevNotes) =>
-        prevNotes.filter((note) => note.id !== noteId)
+        prevNotes.map((note) =>
+          note.id === noteId ? { ...note, color: color } : note
+        )
       );
       console.log('Note color applied');
     } catch (error) {
@@ -111,7 +109,6 @@ const Dashboard: React.FC<DashboardProps> = (props) => {
     }
   };
 
- 
   const toggleLayoutMode = () => {
     setLayoutMode(layoutMode === 'horizontal' ? 'vertical' : 'horizontal');
   };
@@ -138,7 +135,7 @@ const Dashboard: React.FC<DashboardProps> = (props) => {
                 </div>
               ) : (
                 notes
-                  .filter((note) => !note.isArchived && !note.isTrashed)
+                  .filter((note) => !note.isArchived && !note.isDeleted)
                   .map((note) => (
                     <Note
                       key={note.id}
