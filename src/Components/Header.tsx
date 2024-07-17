@@ -6,6 +6,8 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useNavigate } from "react-router-dom";
+import AppsRoundedIcon from '@mui/icons-material/AppsRounded';
+import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 import base_url from '../API/baseUrl';
 
@@ -23,6 +25,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, pageTitle, toggleLayoutM
   const [showUserCard, setShowUserCard] = useState(false);
   const [username, setUsername] = useState('');
   const [profilePicture, setProfilePicture] = useState<string | null>(null);
+  const [showSearchInput, setShowSearchInput] = useState(false);
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
 
@@ -89,31 +92,37 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, pageTitle, toggleLayoutM
         <img src={FundooLogo} alt="Fundoo Logo" className="logo" />
         <h1 className="logo-text">{pageTitle}</h1>
       </div>
-      <div className="search-container">
-        <input type="text" placeholder="Search..." className="search-input" />
+      <div className={`search-container ${showSearchInput ? 'active' : ''}`}>
+        <SearchIcon className="search-icon" onClick={() => setShowSearchInput(true)} />
+        <input type="text" placeholder="Search..." className={`search-input ${showSearchInput ? 'active' : ''}`} />
       </div>
-      <RefreshOutlinedIcon
-        className="refresh"
-        fontSize="medium"
-        style={{ cursor: 'pointer', color: '#555' }}
-      />
-      <div className="layout-toggle" onClick={toggleLayoutMode}>
-        <ViewStreamOutlinedIcon fontSize="medium" />
+      <div className='spacer'></div>
+      <div className='icons'>
+        <RefreshOutlinedIcon
+          className="refresh"
+          fontSize="medium"
+          style={{ cursor: 'pointer', color: '#555' }}
+        />
+        <div className="layout-toggle" onClick={toggleLayoutMode}>
+          <ViewStreamOutlinedIcon fontSize="medium" style={{ cursor: 'pointer', color: '#555' }} />
+        </div>
+        <SettingsOutlinedIcon
+          className="setting"
+          style={{ cursor: 'pointer', color: '#555' }}
+          fontSize="medium"
+        />
       </div>
-      <SettingsOutlinedIcon
-        className="setting"
-        style={{ cursor: 'pointer', color: '#555' }}
-        fontSize="medium"
-      />
-
-      <div className="user-circle" onClick={toggleUserCard}>
-        {profilePicture ? (
-          <img src={profilePicture} alt="Profile" className="profile-picture" />
-        ) : (
-          firstInitial
-        )}
+      <div className='lastpartOfheader'>
+        <AppsRoundedIcon className='squareIcon' style={{ cursor: 'pointer', color: '#555' }}
+          fontSize="medium"/>
+        <div className="user-circle" onClick={toggleUserCard}>
+          {profilePicture ? (
+            <img src={profilePicture} alt="Profile" className="profile-picture" />
+          ) : (
+            firstInitial
+          )}
+        </div>
       </div>
-
       {showUserCard && (
         <div className="user-card">
           <div className="user-info">

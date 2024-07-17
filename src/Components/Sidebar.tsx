@@ -6,6 +6,11 @@ import reminder_icon from '../Assets/reminder_icon.png';
 import archive_icon from '../Assets/archive_icon.png';
 import trash_icon from '../Assets/trash_icon.png';
 import edit_icon from '../Assets/edit_icon.png';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
+import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
+import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import './../Styles/sidebar.scss';
 
 interface SidebarProps {
@@ -50,32 +55,30 @@ interface SidebarProps {
         <div className="sidebar-options">
           <div className={location.pathname === '/dashboard' ? 'active' : ''}>
             <Link to="/dashboard" onClick={() => handleOptionClick('Fundoo Notes')}>
-              <img src={note_icon} alt="Note Icon" className="option-icon" />
+            <LightbulbOutlinedIcon fontSize="medium" className="option-icon"  />
               {!isClosed && <span>Notes</span>}
             </Link>
           </div>
           <div className={location.pathname === '/Reminder' ? 'active' : ''}>
             <Link to="/Reminder" onClick={() => handleOptionClick('Reminder')}>
-              <img src={reminder_icon} alt="Reminder Icon" className="option-icon" />
-              {!isClosed && <span>Reminder</span>}
+            <NotificationsNoneOutlinedIcon fontSize="medium" className="option-icon" /> {!isClosed && <span>Reminder</span>}
             </Link>
           </div>
           <div className={location.pathname === '/EditLabel' ? 'active' : ''}>
             <Link to="#" onClick={() => handleOptionClick('Edit Label')}>
-              <img src={edit_icon} alt="Edit Icon" className="option-icon" />
-              {!isClosed && <span>Edit Label</span>}
+            <EditOutlinedIcon fontSize="medium" className="option-icon" />
             </Link>
           </div>
           <div className={location.pathname === '/Archive' ? 'active' : ''}>
             <Link to="/Archive" onClick={() => handleOptionClick('Archive')}>
-              <img src={archive_icon} alt="Archive Icon" className="option-icon" />
-              {!isClosed && <span>Archive</span>}
+            <ArchiveOutlinedIcon fontSize="medium" className="option-icon"/>{!isClosed && <span>Edit Label</span>}
+            {!isClosed && <span>Archive</span>}
             </Link>
           </div>
           <div className={location.pathname === '/Trash' ? 'active' : ''}>
             <Link to="/Trash" onClick={() => handleOptionClick('Trash')}>
-              <img src={trash_icon} alt="Trash Icon" className="option-icon" />
-              {!isClosed && <span>Trash</span>}
+            <DeleteOutlineOutlinedIcon fontSize="medium" className="option-icon" />
+            {!isClosed && <span>Trash</span>}
             </Link>
           </div>
         </div>

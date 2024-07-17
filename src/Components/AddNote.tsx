@@ -1,27 +1,23 @@
-import "./../Styles/addNote.scss";
-import NoteButtons from "./NoteButtons";
+import React, { useState, ChangeEvent, useRef, useEffect } from "react";
 import AddAlertOutlinedIcon from "@mui/icons-material/AddAlertOutlined";
 import PaletteOutlinedIcon from "@mui/icons-material/PaletteOutlined";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import PushPinOutlinedIcon from "@mui/icons-material/PushPinOutlined";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import {
-  useState,
-  ChangeEvent,
-  useRef,
-  useEffect,
-} from "react";
-import NoteServices, { Note as NoteType } from "./../Services/NoteServices"; // Import NoteType from NoteServices
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import ColourCard from "./ColourCard";
+import { Note as NoteType } from "./../Services/NoteServices";
+import "./../Styles/addNote.scss";
 
 interface AddNoteProps {
   newNote: NoteType;
   onTitleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onTextChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
-  onAddNote: () => void;
+  onAddNote: (note: NoteType) => void;
+  colorNote?: (noteId: number, color: string) => void;
+  archiveNote?: (noteId: number) => void;
+  trashNote?: (noteId: number) => void;
 }
 
 const AddNote: React.FC<AddNoteProps> = ({
@@ -29,15 +25,23 @@ const AddNote: React.FC<AddNoteProps> = ({
   onTitleChange,
   onTextChange,
   onAddNote,
+  colorNote = () => {},
+  trashNote = () => {}
 }) => {
-
   const [isAddNoteOpen, setIsAddNoteOpen] = useState(false);
+  const [colorCardVisible, setColorCardVisible] = useState(false);
+  const [selectedColor, setSelectedColor] = useState<string>("#FFFFFF"); // Default white color
   const addNoteRef = useRef<HTMLDivElement>(null);
+  const colorButtonRef = useRef<HTMLDivElement>(null);
 
   const toggleAddNote = () => {
     setIsAddNoteOpen(!isAddNoteOpen);
   };
+
   const toggleCloseAddNote = () => {
+    if (newNote.title || newNote.description) {
+      handleAddNote();
+    }
     setIsAddNoteOpen(false);
   };
 
@@ -48,6 +52,12 @@ const AddNote: React.FC<AddNoteProps> = ({
     ) {
       setIsAddNoteOpen(false);
     }
+    if (
+      colorButtonRef.current &&
+      !colorButtonRef.current.contains(event.target as Node)
+    ) {
+      setColorCardVisible(false);
+    }
   };
 
   useEffect(() => {
@@ -56,6 +66,30 @@ const AddNote: React.FC<AddNoteProps> = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   });
+
+  const handleColorButtonClick = () => {
+    setColorCardVisible(!colorCardVisible);
+  };
+
+  const handleColorSelection = (color: string) => {
+    setSelectedColor(color);
+    setColorCardVisible(false);
+  };
+
+  const handleAddNote = () => {
+    const noteWithColor = { ...newNote, color: selectedColor };
+    onAddNote(noteWithColor);
+    setSelectedColor("#FFFFFF"); 
+  };
+
+  const handleTrashNote = () => {
+    // Assuming that newNote has a temporary ID or can be managed differently
+    // to ensure it doesn't clash with existing notes
+    const tempNoteId = new Date().getTime();
+    const noteWithTempId = { ...newNote, id: tempNoteId };
+    trashNote(tempNoteId);
+    setIsAddNoteOpen(false);
+  };
 
   return (
     <div ref={addNoteRef} className="add-note">
@@ -88,26 +122,24 @@ const AddNote: React.FC<AddNoteProps> = ({
               <button title="Collaborator">
                 <PersonAddAltIcon fontSize="small" />
               </button>
-              <button title="Background Options">
-                <PaletteOutlinedIcon fontSize="small" />
-              </button>
+              <div ref={colorButtonRef} className="color-button-container" style={{marginRight:'2%'}}>
+                <button title="Background Options" onClick={handleColorButtonClick}>
+                  <PaletteOutlinedIcon fontSize="small" />
+                </button>
+                {colorCardVisible && (
+                  <ColourCard handleColorSelection={handleColorSelection} />
+                )}
+              </div>
               <button title="Image Upload">
                 <ImageOutlinedIcon fontSize="small" />
               </button>
               <button title="Archive">
                 <ArchiveOutlinedIcon fontSize="small" />
               </button>
-              <button title="More Options">
-                <MoreVertIcon fontSize="small" />
+              <button title="Delete" onClick={handleTrashNote}>
+                <DeleteOutlinedIcon fontSize="small" />
               </button>
             </div>
-            <button
-              title="Add"
-              className="closeIcon"
-              onClick={onAddNote}
-            >
-              Add
-            </button>
             <button
               title="Close"
               className="closeIcon"

@@ -1,10 +1,9 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import './../Styles/login.scss';
 import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import base_url from "../API/baseUrl";
 import { useNavigate } from 'react-router-dom';
+import googleLogo from '../Assets/googleLogo.png';
 
 interface LoginData {
   email: string;
@@ -16,11 +15,17 @@ const Login = () => {
     email: "",
     password: ""
   });
+  const [errors, setErrors] = useState<{ email: string; password: string }>({
+    email: "",
+    password: ""
+  });
+
   const navigate = useNavigate();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value });
+    setErrors({ ...errors, [name]: "" }); // Clear error message on input change
   };
 
   const validateEmail = (email: string) => {
@@ -37,13 +42,23 @@ const Login = () => {
 
     const { email, password } = loginData;
 
-    if (!validateEmail(email)) {
-      toast.error('Invalid email format.', { position: 'top-center' });
-      return;
+    let emailError = "";
+    let passwordError = "";
+
+    if (!email) {
+      emailError = "Please enter email.";
+    } else if (!validateEmail(email)) {
+      emailError = "Invalid email format.";
     }
 
-    if (!validatePassword(password)) {
-      toast.error('Password should be at least 6 characters long.', { position: 'top-center' });
+    if (!password) {
+      passwordError = "Please enter password.";
+    } else if (!validatePassword(password)) {
+      passwordError = "Password should be at least 6 characters long.";
+    }
+
+    if (emailError || passwordError) {
+      setErrors({ email: emailError, password: passwordError });
       return;
     }
 
@@ -51,12 +66,11 @@ const Login = () => {
       const response = await axios.post(`${base_url}/user/login`, loginData);
       if (response.status === 200) {
         localStorage.setItem('token', response.data.id);
-        toast.success("User logged in successfully!", { position: 'top-center' });
         navigate('/dashboard');
       }
     } catch (error: any) {
       console.error('Login failed:', error);
-      toast.error('Invalid Credentials. Please try again later', { position: 'top-center' });
+      setErrors({ email: "", password: "Invalid credentials. Please try again later." });
     }
   };
 
@@ -64,23 +78,46 @@ const Login = () => {
     <div className="login-container">
       <div className="login-box">
         <div className="above-form">
-          <h2>Login</h2>
+          <div className='title'>
+            <img src={googleLogo} className='glogo' alt="Google Logo"></img>
+            <h2>Login</h2>
+            <h4>Use your google account</h4>
+          </div>
           <form onSubmit={handleSubmit}>
             <div className="input-group">
-              <input className="login-input" type="text" id="email" name="email" placeholder="Enter your email" value={loginData.email} onChange={handleChange} required />
+              <input
+                className="login-input"
+                type="text"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                value={loginData.email}
+                onChange={handleChange}
+              />
+              {errors.email && <div className="error-message">{errors.email}</div>}
             </div>
             <div className="input-group">
-              <input className="login-input" type="password" id="password" name="password" placeholder="Enter your password" value={loginData.password} onChange={handleChange} required />
+              <input
+                className="login-input"
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                value={loginData.password}
+                onChange={handleChange}
+              />
+              {errors.password && <div className="error-message">{errors.password}</div>}
+            </div>
+            <div className="forgetBtn">
+              <a href="#">Forgot Password?</a>
             </div>
             <div className="links">
-              <a href="#">Forgot Password?</a>
               <a href="/signup">Create Account</a>
+              <button id="submit-button" type="submit">Login</button>
             </div>
-            <button id="submit-button" type="submit">Login</button>
           </form>
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 }

@@ -1,10 +1,9 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import './../Styles/signup.scss';
 import axios from 'axios';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import base_url from "../API/baseUrl";
 import register from "./../Assets/register.png";
+import googleLogo from '../Assets/googleLogo.png';
 
 interface RegisterState {
     firstName: string;
@@ -13,6 +12,7 @@ interface RegisterState {
     password: string;
     service: string;
     confirmPassword: string;
+    apiError?: string; // Add the apiError property
 }
 
 const SignUp = () => {
@@ -25,6 +25,7 @@ const SignUp = () => {
         confirmPassword: ""
     });
     const [showPassword, setShowPassword] = useState(false);
+    const [errors, setErrors] = useState<Partial<RegisterState>>({});
 
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
@@ -41,72 +42,132 @@ const SignUp = () => {
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
+        setErrors({ ...errors, [name]: "" }); // Clear errors on change
     };
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         const { firstName, lastName, email, password, confirmPassword } = formData;
 
+        let validationErrors: Partial<RegisterState> = {};
+
+        if (firstName.trim() === '') {
+            validationErrors.firstName = 'Please enter your first name.';
+        }
+        if (lastName.trim() === '') {
+            validationErrors.lastName = 'Please enter your last name.';
+        }
+        if (!validateEmail(email)) {
+            validationErrors.email = 'Please enter a valid email address.';
+        }
+        if (!validatePassword(password)) {
+            validationErrors.password = 'Please enter a valid password (Minimum 8 characters with a mix of letters, numbers & symbols).';
+        }
+        if (password !== confirmPassword) {
+            validationErrors.confirmPassword = 'Confirm password does not match.';
+        }
+
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            return;
+        }
+
         try {
-            if (firstName.trim() === '') {
-                toast.error('Please enter your first name.', { position: 'top-center' });
-                return;
-            }
-            if (lastName.trim() === '') {
-                toast.error('Please enter your last name.', { position: 'top-center' });
-                return;
-            }
-            if (!validateEmail(email)) {
-                toast.error('Please enter a valid email address.', { position: 'top-center'});
-                return;
-            }
-            if (!validatePassword(password)) {
-                toast.error('Please enter a valid password (Minimum 8 characters with a mix of letters, numbers & symbols).', { position: 'top-center' });
-                return;
-            }
-            if (password !== confirmPassword) {
-                toast.error('Confirm password does not match. Please enter the same password in both fields.', { position: 'top-center' });
-                return;
-            }
-            console.log("formData", formData);
             const response = await axios.post(`${base_url}/user/userSignUp`, formData);
             console.log("token", response);
-            toast.success("User registered!", { position: "top-center" });
+            // Add your success handling here (e.g., redirect to a different page)
         } catch (error: any) {
             console.error("Error:", error.message);
-            toast.error(error.message, { position: 'top-center' });
+            setErrors({ apiError: error.message });
         }
     };
 
     return (
         <div className="register-container">
-        <div className="form-container">
-            <div className='form-content'>
-            <h1>Create your Account</h1>
-            <form> 
-                <div className="name-container">
-                    <input type="text" name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} required />
-                    <input type="text" name="lastName" placeholder="Last Name" value={formData.lastName}  onChange={handleChange} required />
-                </div>
-                <input type="text" name="email" placeholder="Enter your email" value={formData.email}  onChange={handleChange} required />
-            <small>you can use letters, numbers & periods</small>
-                <input type={showPassword ? "text" : "password"} name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
-                <small>Use 8 or more characters with a mix of letters, numbers & symbols</small>
-                <input type={showPassword ? "text" : "password"} name="confirmPassword" placeholder="Confirm" value={formData.confirmPassword} onChange={handleChange} required />
-                <div className="show-password">
-                    <input type="checkbox" name="showPassword" onChange={toggleShowPassword}  />
-                    <label>Show Password</label>
-                </div>
-                <button onClick={handleSubmit} type="submit">Next</button>
-                <a href="/">Sign in instead</a>
-            </form>
+            <div className="form-container">
+                <div className='form-content'>
+                <img src={googleLogo} className='glogo' alt="Google Logo"></img>
+            
+                    <h1>Create your Account</h1>
+                    <form className='loginForm' onSubmit={handleSubmit}>
+                        <div className="name-container">
+                            <div className="input-groupsignup">
+                                <input
+                                    type="text"
+                                    name="firstName"
+                                    placeholder="First Name"
+                                    value={formData.firstName}
+                                    onChange={handleChange}
+                                />
+                                {errors.firstName && <small className="error">{errors.firstName}</small>}
+                            </div>
+                            <div className="input-groupsignup">
+                                <input
+                                    type="text"
+                                    name="lastName"
+                                    placeholder="Last Name"
+                                    value={formData.lastName}
+                                    onChange={handleChange}
+                                />
+                                {errors.lastName && <small className="error">{errors.lastName}</small>}
+                            </div>
+                        </div>
+                        <div className="input-groupsignup">
+                            <input
+                                type="text"
+                                name="email"
+                                className='input-email'
+                                placeholder="Enter your email"
+                                value={formData.email}
+                                onChange={handleChange}
+                            />
+                            {errors.email && <small className="error">{errors.email}</small>}
+                            <small style={{ color:'#777'}}>You can use letters, numbers & periods</small>
+                        </div>
+                        <div className="name-container">
+                            <div className="input-groupsignup">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    name="password"
+                                    placeholder="Password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                />
+                                {errors.password && <small className="error">{errors.password}</small>}
+                            </div>
+                            <div className="input-groupsignup">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    name="confirmPassword"
+                                    placeholder="Confirm"
+                                    value={formData.confirmPassword}
+                                    onChange={handleChange}
+                                />
+                                {errors.confirmPassword && <small className="error">{errors.confirmPassword}</small>}
+                            </div>
+                        </div>
+                        <small style={{ color:'#777'}}>Use 8 or more characters with a mix of letters, numbers & symbols</small>
+                        <div className="show-password">
+                            <input type="checkbox" name="showPassword" onChange={toggleShowPassword} />
+                            <label style={{ fontSize: 15, color: '#28282B' }}>Show Password</label>
+                        </div>
+
+                        <div className="linkssignup">
+                       
+                        <a href="/">Sign in instead</a>
+                        {errors.apiError && <small className="error">{errors.apiError}</small>}
+                        <button className='' type="submit">Next</button>
             </div>
-        <div className="image-container">
-            <img src={register} alt="Google Account Illustration" />
+
+                
+                    </form>
+                </div>
+                <div className="image-container">
+                    <img src={register} alt="Google Account Illustration" />
+                </div>
+            </div>
         </div>
-        </div>
-    </div>
-);
-}
+    );
+};
 
 export default SignUp;

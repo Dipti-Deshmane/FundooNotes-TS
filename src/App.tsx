@@ -1,29 +1,23 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './Pages/login';
-import Dashboard from './Pages/Dashboard';
-import SignUp from './Pages/signup';
-import ColourCard from './Components/ColourCard';
-import Trash from './Components/Trash';
-import Archive from './Components/Archive';
+import AppRouter from './Router/AppRouter';
+import { Container } from 'reactstrap';
+import { ToastContainer } from 'react-toastify';
+
 import './App.css';
 
 function App() {
 
 
   return (
+    <div>  
     <Router>
-      <div className="App">
-   
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/dashboard" element={<Dashboard/>} />
-          <Route path="/Trash" element={<Trash/>} />
-          <Route path="/Archive" element={<Archive/>} />
-        </Routes>
-      </div>
+      <Container>
+       <AppRouter />
+       <ToastContainer />
+      </Container>
     </Router>
+  </div>
   );
 }
 

@@ -49,10 +49,10 @@ const Dashboard: React.FC<DashboardProps> = (props) => {
     }
   };
 
-  const addNote = async () => {
-    if (newNote.title.trim() !== '' || newNote.description.trim() !== '') {
+  const addNote = async (note: NoteType) => {
+    if (note.title.trim() !== '' || note.description.trim() !== '') {
       try {
-        await NoteServices.addNote({ ...newNote }, token);
+        await NoteServices.addNote({ ...note }, token);
         console.log('Successfully added');
         fetchNotes();
         setNewNote({ title: '', description: '' });
@@ -86,6 +86,7 @@ const Dashboard: React.FC<DashboardProps> = (props) => {
       console.error('Error archiving note:', error);
     }
   };
+
   const handleTrash = async (noteId: number) => {
     try {
       await NoteServices.setNoteToTrash([noteId], token);
@@ -95,6 +96,9 @@ const Dashboard: React.FC<DashboardProps> = (props) => {
       console.error('Error deleting note:', error);
     }
   };
+ 
+  
+
   const handleColor = async (noteId: number, color: string) => {
     try {
       await NoteServices.setColor([noteId], token, color);
@@ -116,8 +120,9 @@ const Dashboard: React.FC<DashboardProps> = (props) => {
   return (
     <div className='note-dashboard'>
       <div className='App'>
+      <div className='main'>   
         <Header toggleSidebar={toggleMenubar} pageTitle={pageTitle} toggleLayoutMode={toggleLayoutMode} layoutMode={layoutMode} />
-        <div className='main'>
+        <div className='containerr'>
           <Sidebar isClosed={isMenuSidebar} setPageTitle={setPageTitle} />
           <div className={`notes-container ${isMenuSidebar ? 'shifted' : ''} ${layoutMode}`}>
             <AddNote
@@ -125,6 +130,9 @@ const Dashboard: React.FC<DashboardProps> = (props) => {
               onTitleChange={handleNoteTitleChange}
               onTextChange={handleNoteTextChange}
               onAddNote={addNote}
+              colorNote={handleColor}
+              archiveNote={handleArchive}
+              trashNote={handleTrash}
             />
             {/* Displaying notes */}
             <div className={`pinned-notes-container ${layoutMode}`}>
@@ -149,6 +157,7 @@ const Dashboard: React.FC<DashboardProps> = (props) => {
               )}
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>

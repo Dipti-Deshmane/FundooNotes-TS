@@ -3,11 +3,9 @@
   display: flex;
   background-color: white;
   position: fixed;
-  top: 67px;
+  top: 12%;
   left: 0;
   bottom: 0;
-
- 
 
   &.collapsed {
     width: 60px; // Adjust width as needed for collapsed state
@@ -16,7 +14,7 @@
   .sidebar-options {
     display: flex;
     flex-direction: column;
-    color: #36454F;
+    color: #36454f;
     list-style-type: none;
     font-size: medium;
     text-align: center;
@@ -33,7 +31,7 @@
         display: flex;
         align-items: center;
         text-decoration: none;
-        color: #36454F;
+        color: #36454f;
         border-top-right-radius: 25px;
         border-bottom-right-radius: 25px;
         height: 45px;
@@ -94,5 +92,86 @@
         margin-left: 18px;
       }
     }
+  }
+}
+
+@media only screen and (min-width: 426px) and (max-width: 768px) {
+  .sidebar .sidebar-options .option-icon {
+    display: block;
+  }
+  .mediasidebar.collapsed .sidebar-options div.active a {
+    background-color: #feefc3;
+    align-items: center;
+    flex: none;
+    width: 32%;
+    border-radius: 100%;
+  }
+  
+}
+@media only screen and (min-width: 376px) and (max-width: 425px) {
+  .sidebar .sidebar-options .option-icon {
+    display: block;
+  }
+  .mediasidebar.collapsed .sidebar-options div.active a {
+    background-color: #feefc3;
+    align-items: center;
+    flex: none;
+    width: 50%;
+    border-radius: 100%;
+  }
+  .notes-container.shifted {
+    margin-left: 17%;
+  }
+  .note-card .card {
+    width: 332px;
+  }
+  
+
+}
+
+@media only screen and (max-width: 320px) {
+  .sidebar {
+    display: block;
+  }
+  .mediasidebar {
+    display: hide;
+  }
+
+  .mediasidebar.collapsed {
+    display: block;
+  }
+  .mediasidebar.collapsed .sidebar {
+    width: 60px;
+  }
+  .mediasidebar.collapsed .sidebar-options div.active a {
+    width: 20%;
+    margin-right: 74%;
+    border-radius: 100%;
+  }
+  
+
+  .mediasidebar.collapsed .sidebar-options div.active a span {
+    display: none;
+  }
+
+  .mediasidebar.collapsed .sidebar-options div.active a {
+    align-items: center;
+    flex: none;
+    width: 17%;
+    border-radius: 100%;
+  }
+
+  .mediasidebar.collapsed .sidebar-options .option-icon {
+    text-align: center;
+    margin-left: 18px;
+    display: block;
+  }
+  .sidebar .sidebar-options .option-icon {
+    display: block;
+  }
+  .pinned-notes-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 70%;
   }
 }

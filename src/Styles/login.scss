@@ -1,5 +1,6 @@
 $box-background: white;
 $box-padding: 2rem;
+$error-color: red;
 
 .login-container {
     display: flex;
@@ -13,43 +14,73 @@ $box-padding: 2rem;
     background: $box-background;
     padding: $box-padding;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 3px 15px rgba(0, 0, 0, 0.1);
     width: 25%;
     text-align: center;
-    border: 1px solid black;
+    height: 60%;
+
 }
 
 .above-form {
     margin: 0 2rem;
+ margin-top: 5%;
+}
+.title{
+    margin: 0;
+    padding: 0;
 }
 
-h2 {
-    margin-bottom: $box-padding;
-    margin-top: 2rem;
-    font-size: 1.5rem;
-    color: #333;
+h2{
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+    font-weight: 600;
 }
-
+h4{
+    font-weight: 470;
+    margin-top: 2%;
+}
 .input-group {
     margin-bottom: $box-padding;
+   
 }
 
-
 .login-input {
-    width: 93%;
+    width: 100%;
+    height: 1.5rem;
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-.links {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
+.error-message {
+    color: $error-color;
+    font-size: 0.875rem;
+    text-align: left;
+    margin-top: 0.25rem;
+    margin-left: 1rem;
+   
 }
 
+.links {
+    top: 1%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    align-items: center;
+
+}
+.glogo{
+    width: 45%;
+    height: 10%;
+}
+
+.forgetBtn{
+    display: flex;
+    justify-content: flex-start;
+}
 a {
-    color: #007bff;
+    color: #0066b2;
     text-decoration: none;
     font-size: 0.875rem;
 }
@@ -59,74 +90,73 @@ a:hover {
 }
 
 #submit-button {
-    width: 100%;
-    padding: 0.75rem;
+    width: 30%;
+    padding: 0.6rem;
     border: none;
     border-radius: 4px;
-    background-color: #007bff;
+    background-color: #0066b2;
     color: $box-background;
     font-size: 1rem;
     cursor: pointer;
-    margin-bottom: $box-padding;
+   
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
-/* For devices with a max-width of 600px - mobile devices */
-@media (max-width: 600px) {
+
+
+@media only screen and (min-width: 1025px) and (max-width: 1440px) {
     .login-box {
-        width: 60%;
-        height: 40%;
-    }
+        height: 60%;
+}}
 
-    .login-input {
-        width: 100%;
-    }
-
-    .above-form {
-        margin: 0 1rem;
-    }
-
-    h2 {
-        margin-top: 0;
-        margin-bottom: 1.5rem;
-        font-size: 1.25rem;
-    }
-
-    a {
-        font-size: 0.75rem;
-    }
-
-    #submit-button {
-        font-size: 0.875rem;
-    }
-}
-
-/* For devices with min-width of 601px and max-width of 1024px  - tablets and small desktops */
-@media (min-width: 601px) and (max-width: 1024px) {
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
     .login-box {
-        width: 40%;
-    }
+        height: 55%;
+        width: 35%;
+}}
+    
+@media only screen and (min-width: 426px) and (max-width: 768px) {
+    .login-box {
+        width: 50%;
+        height: 70%;
+       }
 
-    .login-input {
-        width: 95%;
+       .above-form {
+     
+         margin-top: 0;
     }
+    
+    }
+    @media only screen and (min-width: 376px) and (max-width:425px) {
+        .login-box {
+            width: 70%;
+           }
+               .above-form {
+                margin: 0 1rem;
+           
+        }
+        }
 
-    .above-form {
-        margin: 0 1.5rem;
-    }
+        @media only screen and (min-width: 321px) and (max-width:375px) {
+            .login-box {
+                width: 70%;
+               }
+                   .above-form {
+                    margin: 0 1rem;
+               
+            }
+            }
 
-    h2 {
-        font-size: 1.35rem;
-    }
-
-    a {
-        font-size: 0.85rem;
-    }
-
-    #submit-button {
-        font-size: 0.95rem;
-    }
-}
+        @media only screen and (max-width:320px) {
+            .login-box {
+                width: 70%;
+               }
+                   .above-form {
+                    margin: 0 0rem;
+               
+            }
+            
+            }
