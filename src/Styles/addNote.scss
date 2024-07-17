@@ -73,3 +73,16 @@ $font-family-calibri: Calibri;
   width: 100%;
   align-items: center;
 }
+
+@media only screen and (max-width: 320px) {
+  .take-note {
+  height: 21px;
+}}
+@media only screen and (min-width: 321px) and (max-width: 375px) {
+  .take-note {
+    height: 21px;}
+}
+@media only screen and (min-width: 376px) and (max-width: 425px) {
+  .take-note {
+    height: 23px;}
+}

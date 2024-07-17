@@ -64,6 +64,14 @@ const Dashboard: React.FC<DashboardProps> = (props) => {
 
   const toggleMenubar = () => {
     setSidebarMenu(!isMenuSidebar);
+    const notesContainer = document.querySelector('.notes-container');
+    if (notesContainer) {
+      if (isMenuSidebar) {
+        notesContainer.classList.remove('shifted');
+      } else {
+        notesContainer.classList.add('shifted');
+      }
+    }
   };
 
   const updateNote = async (noteId: number, updatedNote: NoteType) => {

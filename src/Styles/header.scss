@@ -263,6 +263,7 @@
 
     .layout-toggle{
       margin-top: 6%;
+      display: none;
     }
   
     .header .user-circle {
@@ -341,6 +342,7 @@
 
     .layout-toggle{
       margin-top: 6%;
+      display: none;
     }
   
     .header .user-circle {
@@ -363,7 +365,7 @@
       height:4% ;
     }
     .header .spacer {
-      width: 2%;
+      width: 0;
     }
     .header .logo-container .logo-text {
       font-size: 18px;
@@ -417,6 +419,7 @@
 
     .layout-toggle{
       margin-top: 6%;
+      display: none;
     }
   
     .header .user-circle {
@@ -470,5 +473,6 @@
     .header .mainMenu {
       width: 5.2%;
     }
+
   
 }

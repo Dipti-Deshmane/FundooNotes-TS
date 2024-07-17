@@ -1,11 +1,12 @@
 .sidebar {
   width: 21%;
   display: flex;
-  background-color: white;
+ 
   position: fixed;
-  top: 12%;
+  top: 10%;
   left: 0;
   bottom: 0;
+  z-index: 2;
 
   &.collapsed {
     width: 60px; // Adjust width as needed for collapsed state
@@ -106,8 +107,8 @@
     width: 32%;
     border-radius: 100%;
   }
-  
 }
+
 @media only screen and (min-width: 376px) and (max-width: 425px) {
   .sidebar .sidebar-options .option-icon {
     display: block;
@@ -120,11 +121,32 @@
     border-radius: 100%;
   }
   .mediasidebar.collapsed .sidebar-options .option-icon {
-  
     margin-left: 13px;
   }
- 
+  .sidebar .sidebar-options .option-icon {
+    width: 19px;
+  }
+  .mediasidebar.collapsed .sidebar {
+    padding-left: 0;
+    width: 21%;
+    z-index: 3; // Ensure sidebar is above the notes container
+  }
+  .sidebar {
+    width: 52%;
+    background-color: white;
+  }
+  .sidebar .sidebar-options > div a {
+    font-size: small;
+  }
+  .sidebar .sidebar-options > div.active a {
+    font-size: small;
+  }
+
+.sidebar {
+  top: 10%;
 }
+}
+
 @media only screen and (min-width: 321px) and (max-width: 375px) {
   .sidebar .sidebar-options .option-icon {
     display: block;
@@ -136,9 +158,34 @@
     width: 50%;
     border-radius: 100%;
   }
+  
+  .mediasidebar.collapsed .sidebar-options .option-icon {
+    margin-left: 11px;
+    font-size: large;
  
+  }
+  .sidebar .sidebar-options .option-icon {
+    width: 19px;
+  }
+  .mediasidebar.collapsed .sidebar {
+    padding-left: 0;
+    width: 23%;
+    z-index: 3; // Ensure sidebar is above the notes container
+  }
+  .sidebar {
+    width: 52%;
+    background-color: white;
+  }
+  .sidebar .sidebar-options > div a {
+    font-size: small;
+  }
+  .sidebar .sidebar-options > div.active a {
+    font-size: small;
+  }
 
-
+.sidebar {
+  top: 10%;
+}
 }
 
 @media only screen and (max-width: 320px) {
@@ -153,12 +200,30 @@
     border-radius: 100%;
   }
   .mediasidebar.collapsed .sidebar-options .option-icon {
-    margin-left: 10px;
-  
-  }   
+    margin-left: 11px;
+    font-size: large;
+ 
+  }
+  .sidebar .sidebar-options .option-icon {
+    width: 19px;
+  }
   .mediasidebar.collapsed .sidebar {
     padding-left: 0;
     width: 25%;
+    z-index: 3; // Ensure sidebar is above the notes container
+  }
+  .sidebar {
+    width: 52%;
+    background-color: white;
+  }
+  .sidebar .sidebar-options > div a {
+    font-size: small;
+  }
+  .sidebar .sidebar-options > div.active a {
+    font-size: small;
+  }
 
+.sidebar {
+  top: 10%;
 }
- }
+}

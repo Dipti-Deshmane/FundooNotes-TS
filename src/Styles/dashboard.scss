@@ -208,6 +208,7 @@ width: 100%;
       border-radius: 100%;
       height: 30px;
       margin-left: 2%;
+    
 
       &:hover {
         color: #000;
@@ -218,6 +219,10 @@ width: 100%;
         color: #555;
       }
     }
+  }
+    
+  .button-container-wrapper {
+    display: none; 
   }
 
   &:hover .button-container-wrapper {
@@ -256,32 +261,52 @@ width: 100%;
 @media only screen and (min-width: 376px) and (max-width: 425px) {
   .notes-container.shifted {
     margin-left: 17%;
+    
+    z-index: 3;
+
   }
   .note-card .card {
-    width: 314px;
+    width: 313px;
+    min-height: 101px;  
+    padding: 1%;
   }
   .add-note {
     width: 108%;
     align-items: center;
      margin-left: 0;
   }
+
   .note-card .button-container {
     display: flex;
-  justify-content: space-evenly;
-padding: 0;
-}
+  justify-content: left;
+  padding: 0;
+  }
+  .note-card .card-title {
+  font-size: 14px;
+  padding: 2%;
+  }
+  .note-card .card-text {
+  font-size: 14px;
+  padding: 2%;}
+  .button-container svg{
+    font-size: medium;
+  }
 }
 
 @media only screen and (min-width: 321px) and (max-width: 375px) {
   .notes-container.shifted {
     margin-left: 17%;
+    
+    z-index: 3;
   }
   .note-card .card {
     width: 290px;
+    min-height: 101px;  
+    padding: 1%;
   }
   .mediasidebar.collapsed .sidebar {
     padding-left: 0;
-    width: 18%;
+    width: 22%;
 
 }
   .add-note {
@@ -289,23 +314,41 @@ padding: 0;
     align-items: center;
      margin-left: 0;
   }
-  .note-card .button-container {
-    display: flex;
-  justify-content: space-evenly;
-padding: 0;
-}
+
 .mediasidebar.collapsed .sidebar-options .option-icon {
   margin-left: 11px;
 
 }
+.note-card .button-container {
+  display: flex;
+justify-content: left;
+padding: 0;
+}
+.note-card .card-title {
+font-size: 14px;
+padding: 2%;
+}
+.note-card .card-text {
+font-size: 14px;
+padding: 2%;}
+.button-container svg{
+  font-size: medium;
+}
 }
 
 @media only screen and (max-width: 320px) {
+  .button-container svg{
+    font-size: medium;
+  }
   .notes-container.shifted {
     margin-left: 17%;
+
+    z-index: 3;
   }
   .note-card .card {
-    width: 240px;
+    width: 253px;
+    min-height: 99px;
+    padding: 0%;
   }
 
   .add-note {
@@ -315,11 +358,15 @@ padding: 0;
   }
   .note-card .button-container {
     display: flex;
-  justify-content: space-evenly;
+  justify-content: left;
 padding: 0;
 }
-.take-note {
-  height: 21px;
+.note-card .card-title {
+  font-size: 14px;
+  padding: 2%;
 }
+.note-card .card-text {
+  font-size: 14px;
+  padding: 2%;}
 
 }
