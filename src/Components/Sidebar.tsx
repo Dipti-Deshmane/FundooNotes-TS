@@ -67,11 +67,12 @@ interface SidebarProps {
           <div className={location.pathname === '/EditLabel' ? 'active' : ''}>
             <Link to="#" onClick={() => handleOptionClick('Edit Label')}>
             <EditOutlinedIcon fontSize="medium" className="option-icon" />
+            {!isClosed && <span>Edit Label</span>}
             </Link>
           </div>
           <div className={location.pathname === '/Archive' ? 'active' : ''}>
             <Link to="/Archive" onClick={() => handleOptionClick('Archive')}>
-            <ArchiveOutlinedIcon fontSize="medium" className="option-icon"/>{!isClosed && <span>Edit Label</span>}
+            <ArchiveOutlinedIcon fontSize="medium" className="option-icon"/>
             {!isClosed && <span>Archive</span>}
             </Link>
           </div>

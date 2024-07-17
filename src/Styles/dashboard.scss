@@ -258,10 +258,10 @@ width: 100%;
     margin-left: 17%;
   }
   .note-card .card {
-    width: 332px;
+    width: 314px;
   }
   .add-note {
-    width: 114%;
+    width: 108%;
     align-items: center;
      margin-left: 0;
   }
@@ -273,49 +273,53 @@ padding: 0;
 }
 
 @media only screen and (min-width: 321px) and (max-width: 375px) {
+  .notes-container.shifted {
+    margin-left: 17%;
+  }
+  .note-card .card {
+    width: 290px;
+  }
+  .mediasidebar.collapsed .sidebar {
+    padding-left: 0;
+    width: 18%;
+
+}
+  .add-note {
+    width: 114%;
+    align-items: center;
+     margin-left: 0;
+  }
+  .note-card .button-container {
+    display: flex;
+  justify-content: space-evenly;
+padding: 0;
+}
+.mediasidebar.collapsed .sidebar-options .option-icon {
+  margin-left: 11px;
+
+}
 }
 
 @media only screen and (max-width: 320px) {
-  .main {
-    width: 320px;
+  .notes-container.shifted {
+    margin-left: 17%;
+  }
+  .note-card .card {
+    width: 240px;
   }
 
-  .notes-container.shifted {
-    margin-left: 40%;
-    width: 57%;}
-
-    .notes-container {
-      /* margin-bottom: 10px; */
-      /* margin-left: 10%; */
-      width: calc(100vw - 70%);
-      /* height: calc(100vh - 74px); */
-      flex-grow: 1;
-      transition: margin-left 0.3s ease, z-index 0.3s ease;
-       }
-
-       .notes-container.horizontal .pinned-notes-container {
-        display: flex;
-        flex-direction: column;
-        margin-left: -10%;
-        }
-        .note-card .card {
-          width: 203px;
-          min-height: 103px;
-        }
-
-        .add-note {
-          background-color: #fff;
-          border-radius: 8px;
-          margin: 76px 0px 14px -25px;
-          transition: box-shadow 0.3s ease;
-          box-shadow: 1px 1px 1px 1.5px rgba(0, 0, 0, 0.3);
-          width: 64%;
-      
-        }
-        .take-note {
-          width: 64%;
-        }
-
-        
+  .add-note {
+    width: 114%;
+    align-items: center;
+     margin-left: 0;
+  }
+  .note-card .button-container {
+    display: flex;
+  justify-content: space-evenly;
+padding: 0;
+}
+.take-note {
+  height: 21px;
+}
 
 }
