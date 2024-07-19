@@ -9,6 +9,8 @@ const Layout: React.FC = () => {
   const [pageTitle, setPageTitle] = useState('');
   const [layoutMode, setLayoutMode] = useState<'horizontal' | 'vertical'>('horizontal');
   const [searchText, setSearchText] = useState('');
+  
+  
   const toggleMenubar = () => {
     setSidebarMenu(!isMenuSidebar);
   };
@@ -21,6 +23,9 @@ const Layout: React.FC = () => {
 
 
   return (
+    <div className="note-dashboard">
+    <div className="App">
+      <div className="main">
     <div className='layout'>
       <Header
         toggleSidebar={toggleMenubar}
@@ -29,14 +34,16 @@ const Layout: React.FC = () => {
         layoutMode={layoutMode}
         onSearch={setSearchText}
       />
-
-      <div className='main'>
+ <div className="containerr">
         <Sidebar isClosed={isMenuSidebar} setPageTitle={setPageTitle} />
-        <div className={`content ${isMenuSidebar ? 'shifted' : ''} ${layoutMode}`}>
+        <div className={`notes-container ${isMenuSidebar ? 'shifted' : ''}`} >
           <Outlet />
         </div>
       </div>
-    </div>
+      </div>
+      </div>
+      </div>
+      </div>
   );
 };
 

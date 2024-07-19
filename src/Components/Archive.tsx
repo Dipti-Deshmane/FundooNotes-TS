@@ -53,12 +53,8 @@ const Archive: React.FC =()=>{
   
     
       return (
-        <div className="note-dashboard">
-          <div className="App">
-          <div className="main">     
-          <div className="trash-container">
-          <div className={`notes-container ${isMenuSidebar ? 'shifted' : ''} ${layoutMode}`}>
-          <div className={`trash-notes-container ${layoutMode}`}>
+           
+          <div className={`trash-notes-container`}>
                   {archivedNotes.length === 0 ? (
                     <div className="BackImg">
                    <ArchiveOutlinedIcon style={{fontSize:120}}/>
@@ -67,15 +63,12 @@ const Archive: React.FC =()=>{
                   ) : (
                     archivedNotes.map((note) => (
                       <Note key={note.id} note={note} unarchiveNote={handleUnArchive}
-                      isArchivedPage={true} trashNote={handleTrash} />
+                      isArchivedPage={true} trashNote={handleTrash}  layoutMode={layoutMode}/>
                     ))
                   )}
                 </div>
-              </div>
-              </div>
-            </div>
-          </div>
-        </div>
+           
+            
       );
    
 };

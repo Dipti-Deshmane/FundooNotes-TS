@@ -4,8 +4,9 @@ import NoteButtons from "./NoteButtons";
 import { PushPinOutlined, PushPin } from "@mui/icons-material";
 import { Tooltip } from "@mui/material";
 
-export interface NoteProps {
+interface NoteProps {
   note: NoteType;
+  layoutMode: 'vertical' | 'horizontal';
   updateNote?: (noteId: number, updatedNote: NoteType) => void;
   archiveNote?: (noteId: number) => void;
   trashNote?: (noteId: number) => void;
@@ -19,12 +20,14 @@ export interface NoteProps {
 const Note: React.FC<NoteProps> = ({
   note,
   updateNote = () => {},
+  layoutMode,
   archiveNote = () => {},
   trashNote = () => {},
   unarchiveNote = () => {},
   isArchivedPage = false,
   colorNote = () => {},
   pinNote = () => {},
+  
   unpinNote = () => {},
 }) => {
   const handleBlur = (field: "title" | "description", value: string) => {
@@ -64,7 +67,8 @@ const Note: React.FC<NoteProps> = ({
   };
 
   return (
-    <div className="header-card">
+    
+    <div className={`header-card ${layoutMode}`}>
       <div className="note-card">
         <div className="card" style={{ backgroundColor: note.color }}>
           <div className="note-card-body">

@@ -1,18 +1,17 @@
-import React, { useState,useEffect } from 'react';
-import FundooLogo from '../Assets/FundooLogo.png';
+import React from 'react';
+import { useNavigate } from "react-router-dom";
+import { useEffect,useState } from 'react';
+import { GridView as GridViewIcon, ViewStreamOutlined as ViewStreamOutlinedIcon } from "@mui/icons-material";
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
-import { ViewStreamOutlined as ViewStreamOutlinedIcon } from '@mui/icons-material';
+import SearchIcon from '@mui/icons-material/Search';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import AppsRoundedIcon from '@mui/icons-material/AppsRounded';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link, useNavigate } from "react-router-dom";
-import AppsRoundedIcon from '@mui/icons-material/AppsRounded';
-import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 import base_url from '../API/baseUrl';
-
 import './../Styles/header.scss';
-import { Card } from 'reactstrap';
+import FundooLogo from '../Assets/FundooLogo.png';
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -22,7 +21,7 @@ interface HeaderProps {
   onSearch: (searchText: string) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ toggleSidebar, pageTitle, toggleLayoutMode, layoutMode ,onSearch}) => {
+const Header: React.FC<HeaderProps> = ({ toggleSidebar, pageTitle, toggleLayoutMode, layoutMode, onSearch }) => {
   const [showUserCard, setShowUserCard] = useState(false);
   const [username, setUsername] = useState('');
   const [profilePicture, setProfilePicture] = useState<string | null>(null);
@@ -31,6 +30,10 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, pageTitle, toggleLayoutM
   const email = localStorage.getItem('email');
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setUsername(`${email}`);
+  }, [email]);
 
   const toggleUserCard = () => {
     setShowUserCard(!showUserCard);
@@ -86,12 +89,8 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, pageTitle, toggleLayoutM
     onSearch(event.target.value);
   };
 
-  useEffect(() => {
-    setUsername(`${email}`);
-}, [email]);
-
   const handleRefresh = () => {
-    window.location.reload(); 
+    window.location.reload();
   };
 
   return (
@@ -107,27 +106,25 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, pageTitle, toggleLayoutM
         <img src={FundooLogo} alt="Fundoo Logo" className="logo" />
         <h1 className="logo-text">{pageTitle}</h1>
       </div>
-
       <div className={`search-container ${showSearchInput ? 'active' : ''}`}>
         <SearchIcon className="search-icon" onClick={() => setShowSearchInput(true)} />
-        <input
-          type="text"
-          placeholder="Search..."
-          className={`search-input ${showSearchInput ? 'active' : ''}`}
-          onChange={handleSearchInputChange}
-        />
+        <input type="text" placeholder="Search..." onChange={handleSearchInputChange} className={`search-input ${showSearchInput ? 'active' : ''}`} />
       </div>
-
       <div className='spacer'></div>
       <div className='icons'>
-      <div onClick={handleRefresh}>
-        <RefreshOutlinedIcon
-          className="refresh"
-          fontSize="medium"
-          style={{ cursor: 'pointer', color: '#555' }}
-        /></div>
+        <div onClick={handleRefresh}>
+          <RefreshOutlinedIcon
+            className="refresh"
+            fontSize="medium"
+            style={{ cursor: 'pointer', color: '#555' }}
+          />
+        </div>
         <div className="layout-toggle" onClick={toggleLayoutMode}>
-          <ViewStreamOutlinedIcon fontSize="medium" style={{ cursor: 'pointer', color: '#555' }} />
+          {layoutMode === "vertical" ? (
+            <ViewStreamOutlinedIcon fontSize="medium" style={{ cursor: 'pointer', color: '#555' }} />
+          ) : (
+            <GridViewIcon fontSize="medium" style={{ cursor: 'pointer', color: '#555' }} />
+          )}
         </div>
         <SettingsOutlinedIcon
           className="setting"
@@ -137,49 +134,46 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, pageTitle, toggleLayoutM
       </div>
       <div className='lastpartOfheader'>
         <AppsRoundedIcon className='squareIcon' style={{ cursor: 'pointer', color: '#555' }}
-          fontSize="medium"/>
-       
-       <div className="user-circle" onClick={toggleUserCard}>
-        {profilePicture ? (
-        <>
-         <img src={profilePicture} alt="Profile" className="profile-picture" />
-        </>
-        ) : <span>{firstInitial}</span> }
-      </div>
-      {showUserCard && (
-        <div className="user-card">
-          <div className="user-info">
-            <p className='username'>{username}</p>
-          </div>
-          <div className="profile-button-container">
-            <label htmlFor="profile-picture-input" className="profile-picture-label">
-              {profilePicture ? (
-                <img src={profilePicture} alt="Profile" className="profile-picture" />
-              ) : (
-                <span className='usernameInitial'> {firstInitial} </span>
-              )}
-            </label>
-      <input
-              className="pic"
-              type="file"
-              accept="image/*"
-              id="profile-picture-input"
-              onChange={handleImageUpload}
-              style={{ display: 'none' }}
-            />
-          </div>
-
-          <p className='accName'>Hi, dipti!</p>
-
-          <div className="account-actions">
-            <button className="add-account-button">Add Account</button>
-            <button className="sign-out-button" onClick={handleLogout}>
-              <LogoutIcon style={{ marginRight: 5 }} />
-              Logout
-            </button>
-          </div>
+          fontSize="medium" />
+        <div className="user-circle" onClick={toggleUserCard}>
+          {profilePicture ? (
+            <img src={profilePicture} alt="Profile" className="profile-picture" />
+          ) : (
+            <span>{firstInitial}</span>
+          )}
         </div>
-      )}
+        {showUserCard && (
+          <div className="user-card">
+            <div className="user-info">
+              <p className='username'>{username}</p>
+            </div>
+            <div className="profile-button-container">
+              <label htmlFor="profile-picture-input" className="profile-picture-label">
+                {profilePicture ? (
+                  <img src={profilePicture} alt="Profile" className="profile-picture" />
+                ) : (
+                  <span className='usernameInitial'> {firstInitial} </span>
+                )}
+              </label>
+              <input
+                className="pic"
+                type="file"
+                accept="image/*"
+                id="profile-picture-input"
+                onChange={handleImageUpload}
+                style={{ display: 'none' }}
+              />
+            </div>
+            <p className='accName'>Hi, {firstName}!</p>
+            <div className="account-actions">
+              <button className="add-account-button">Add Account</button>
+              <button className="sign-out-button" onClick={handleLogout}>
+                <LogoutIcon style={{ marginRight: 5 }} />
+                Logout
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );

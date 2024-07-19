@@ -1,7 +1,7 @@
 .note-dashboard {
   display: flex;
   flex-wrap: wrap; // Allow items to wrap onto the next line
-
+  justify-content: center;
   align-items: center;
 }
 
@@ -11,94 +11,70 @@
   height: 100vh;
   color: #000;
 }
-.body{
-  width: 100vw;
-  height: 100vh;
-}
+
 
 .main {
   display: flex;
   position: relative;
   width: 100vw;
   height: 100vh;
+}
 
+.containerr {
+  width: 100vw;
+}
+.add-note-container.hidden {
+  visibility: hidden;
+}
+
+.note-card:focus,.note-card-body:focus,.card-title:focus,.card-text:focus {
+  outline: none;
+  border: none;
 }
 
 
-/* dashboard.scss */
-
-
-.pinned-notes-container, .unpinned-notes-container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.pinned-notes-container {
-
-  margin-bottom: 20px;
-  flex-direction: row;
-  flex-wrap: nowrap;
-}
-
-
-
-.pin-icon {
-  display: none;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  color: #555;
-  font-size: medium;
-}
-
-/* Show pin icon on hover */
-.note-card:hover .pin-icon {
-  display: block;
-
-}
-
-
-.containerr{
- 
-width: 100%;
-}
 .notes-container {
-  margin-top: 6%;
+  top: 12%;
   margin-bottom: 10px;
   margin-left: 24%;
-  width: 89%;
+  width: 79%;
   flex-grow: 1;
   transition: margin-left 0.3s ease, z-index 0.3s ease;
-
+  position: relative;
   z-index: 1;
 
-  &.shifted {
-    margin-left: 13%;
-    z-index: 0;
+}
+.notes-container.shifted {
+  margin-left: 12%;
+  z-index: 0;
+
+  .add-note {
+    margin-left:31%;
   }
 }
 
-// sidebar.scss
-.mediasidebar {
-  width: 250px;
-  transition: width 0.3s;
-}
 
-.mediasidebar.collapsed {
-  width: 60px;
-}
-
+  .card {
+    width: 500px;
+    min-height: 117px;
+    height: auto;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    border-radius: 8px;
+    padding: 5px;
+  }
+ 
 .add-note {
-margin-top: 2%;
   background-color: #fff;
   border-radius: 8px;
-  margin-bottom: 4%;
+  margin-bottom: 1%;
   transition: box-shadow 0.3s ease;
   box-shadow: 1px 1px 1px 1.5px rgba(0, 0, 0, 0.3);
-  width: 50%;
+  width: 49%;
   align-items: center;
-  margin-left: 17%;
+  margin-left: 28%;
+  margin-top: 8%;
 
   &:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -121,6 +97,7 @@ margin-top: 2%;
   }
 }
 
+
 .pinned-header {
   margin-top: 20px;
   font-size: 10px;
@@ -128,11 +105,49 @@ margin-top: 2%;
   color: #333;
 }
 
+.note-head-container {
+  color: #5f6368;
+  font-size: 0.6875rem;
+  letter-spacing: 0.0727272727em;
+  line-height: 1rem;
+  margin: 32px 0 8px 21px;
+  width: 4%;
+}
+
 .header-card {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding-right: 2%;
+  margin-right: 2%;
+}
+
+.pinned-notes-container,
+.unpinned-notes-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  overflow: visible;
+}
+
+.notes-container.shifted{
+  .pinned-notes-container,.unpinned-notes-container{
+    width: 121%;
+  }
+}
+
+.pin-icon {
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: #555;
+  font-size: medium;
+}
+
+/* Show pin icon on hover */
+.note-card:hover .pin-icon {
+  display: block;
 }
 
 .note-card {
@@ -141,6 +156,16 @@ margin-top: 2%;
   position: relative;
   flex: 0 0 auto;
   border: 1px solid #c8c8c8;
+  &.vertical {
+    margin-left: 0;
+    width: 240px;
+    margin-right: 20px;
+  }
+  &.horizontal {
+    margin-left: 209px;
+    width: 57.6%;
+    margin-right: 12px;
+  }
 
   .card {
     width: 220px;
@@ -202,16 +227,8 @@ margin-top: 2%;
       margin-top: 4px;
       margin-right: 5px;
     }
-  
   }
 
-  .button-container-wrapper {
-    display: none;
-  }
-
-  &:hover .button-container-wrapper {
-    display: block;
-  }
   .button-container {
     display: flex;
     position: absolute;
@@ -228,7 +245,6 @@ margin-top: 2%;
       border-radius: 100%;
       height: 30px;
       margin-left: 2%;
-    
 
       &:hover {
         color: #000;
@@ -240,11 +256,15 @@ margin-top: 2%;
       }
     }
   }
-    
- 
+
+  .button-container-wrapper {
+    display: none;
+  }
+
+  &:hover .button-container-wrapper {
+    display: block;
+  }
 }
-
-
 
 @media only screen and (min-width: 1025px) and (max-width: 1440px) {
 }
@@ -269,98 +289,89 @@ margin-top: 2%;
     margin-top: -5%;
   }
   .notes-container {
-    top:0;
+    top: 0;
   }
- 
 }
 
 @media only screen and (min-width: 376px) and (max-width: 425px) {
   .notes-container.shifted {
     margin-left: 17%;
-    
-    z-index: 3;
 
+    z-index: 3;
   }
   .note-card .card {
     width: 313px;
-    min-height: 101px;  
+    min-height: 101px;
     padding: 1%;
   }
   .add-note {
     width: 108%;
     align-items: center;
-     margin-left: 0;
+    margin-left: 0;
   }
 
   .note-card .button-container {
     display: flex;
-  justify-content: left;
-  padding: 0;
+    justify-content: left;
+    padding: 0;
   }
   .note-card .card-title {
-  font-size: 14px;
-  padding: 2%;
+    font-size: 14px;
+    padding: 2%;
   }
   .note-card .card-text {
-  font-size: 14px;
-  padding: 2%;}
-  .button-container svg{
+    font-size: 14px;
+    padding: 2%;
+  }
+  .button-container svg {
     font-size: medium;
   }
-  
-  .notes-container {
-    margin-top: 20%;
-    z-index: 3;}
 }
 
 @media only screen and (min-width: 321px) and (max-width: 375px) {
   .notes-container.shifted {
     margin-left: 17%;
-        z-index: 3;
+
+    z-index: 3;
   }
   .note-card .card {
     width: 290px;
-    min-height: 101px;  
+    min-height: 101px;
     padding: 1%;
   }
   .mediasidebar.collapsed .sidebar {
     padding-left: 0;
     width: 22%;
-
-}
+  }
   .add-note {
     width: 114%;
     align-items: center;
-     margin-left: 0;
+    margin-left: 0;
   }
 
-.mediasidebar.collapsed .sidebar-options .option-icon {
-  margin-left: 11px;
-
-}
-.note-card .button-container {
-  display: flex;
-justify-content: left;
-padding: 0;
-}
-.note-card .card-title {
-font-size: 14px;
-padding: 2%;
-}
-.note-card .card-text {
-font-size: 14px;
-padding: 2%;}
-
-.notes-container {
-  z-index: 3;
-  margin-top: 20%;}
-.button-container svg{
-  font-size: medium;
-}
+  .mediasidebar.collapsed .sidebar-options .option-icon {
+    margin-left: 11px;
+  }
+  .note-card .button-container {
+    display: flex;
+    justify-content: left;
+    padding: 0;
+  }
+  .note-card .card-title {
+    font-size: 14px;
+    padding: 2%;
+  }
+  .note-card .card-text {
+    font-size: 14px;
+    padding: 2%;
+  }
+  .button-container svg {
+    font-size: medium;
+  }
 }
 
 @media only screen and (max-width: 320px) {
-  .button-container svg{
+  .button-container svg {
     font-size: medium;
   }
   .notes-container.shifted {
@@ -377,22 +388,19 @@ padding: 2%;}
   .add-note {
     width: 114%;
     align-items: center;
-     margin-left: 0;
+    margin-left: 0;
   }
   .note-card .button-container {
     display: flex;
-  justify-content: left;
-padding: 0;
-}
-.note-card .card-title {
-  font-size: 14px;
-  padding: 2%;
-}
-.note-card .card-text {
-  font-size: 14px;
-  padding: 2%;}
-  .notes-container {
-    z-index: 3;
-    margin-top: 20%;}
-
+    justify-content: left;
+    padding: 0;
+  }
+  .note-card .card-title {
+    font-size: 14px;
+    padding: 2%;
+  }
+  .note-card .card-text {
+    font-size: 14px;
+    padding: 2%;
+  }
 }

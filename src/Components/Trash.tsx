@@ -11,13 +11,7 @@ const Trash: React.FC = () => {
   const [trashedNotes, setTrashedNotes] = useState<NoteType[]>([]);
   const token = localStorage.getItem("token") || "";
   const [isMenuSidebar, setSidebarMenu] = useState<boolean>(false);
- 
-  const [layoutMode, setLayoutMode] = useState<'horizontal' | 'vertical'>('horizontal');
 
-     
-  const toggleMenubar = () => {
-    setSidebarMenu(!isMenuSidebar);
-  };
 
   const fetchTrashNotes = async () => {
     try {
@@ -42,7 +36,7 @@ const Trash: React.FC = () => {
       setTrashedNotes((prevNotes) =>
         prevNotes.filter((note) => note.id !== noteId)
       );
-      console.log("Note is untrash");
+      console.log("Note is untrashed");
     } catch (error) {
       console.error("Error untrashing note:", error);
     }
@@ -52,25 +46,19 @@ const Trash: React.FC = () => {
     try {
       await NoteServices.deleteNoteForever([noteId], token);
       setTrashedNotes(prevNotes => prevNotes.filter(note => note.id !== noteId));
-      console.log("Note is permantaly deleted");
+      console.log("Note is permanently deleted");
     } catch (error) {
       console.error('Error deleting note:', error);
     }
   };
 
-
   return (
-    <div className="note-dashboard">
-      <div className="App">
-    <div className="main">
-       <div className="trash-container">
-        <div className={`notes-container ${isMenuSidebar ? 'shifted' : ''} ${layoutMode}`}>
-              <div className={`trash-notes-container ${layoutMode}`}>
+ <div className={`trash-notes-container`}>
                 {trashedNotes.length === 0 ? (
-                 <div className="BackImg">
-                   <DeleteOutlinedIcon style={{fontSize:120}}/>
-                   <p className="noNote" >No notes in Trash</p>
-                   </div>
+                  <div className="BackImg">
+                    <DeleteOutlinedIcon style={{ fontSize: 120 }} />
+                    <p className="noNote">No notes in Trash</p>
+                  </div>
                 ) : (
                   trashedNotes.map((note) => (
                     <div className="header-card" key={note.id}>
@@ -81,7 +69,7 @@ const Trash: React.FC = () => {
                             <div className="card-text">{note.description}</div>
                             <div className="button-container-wrapper">
                               <div className="button-container">
-                              <button
+                                <button
                                   title="deleteForever"
                                   onClick={() => deleteForever(note.id!)}
                                 >
@@ -101,12 +89,10 @@ const Trash: React.FC = () => {
                     </div>
                   ))
                 )}
-              </div>
+           
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    
+     
   );
 };
 
