@@ -71,6 +71,23 @@ setNoteToUnArchive : (noteIdList: number[], token: string) => {
     headers: { Authorization: token },
   });
 },
+pinNote : (noteIdList: number[], token: string) => {
+  return axios.post(`${base_url}/notes/pinUnpinNotes`, {
+    noteIdList,
+    isPined: true
+  }, {
+    headers: { Authorization: token },
+  });
+},
+
+unPinNote : (noteIdList: number[], token: string) => {
+  return axios.post(`${base_url}/notes/pinUnpinNotes`, {
+    noteIdList,
+    isPined: false
+  }, {
+    headers: { Authorization: token },
+  });
+},
 
 setNoteToTrash : (noteIdList: number[], token: string) => {
   return axios.post(`${base_url}/notes/trashNotes`, {

@@ -12,6 +12,7 @@ import "./../Styles/addNote.scss";
 
 interface AddNoteProps {
   newNote: NoteType;
+  
   onTitleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onTextChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   onAddNote: (note: NoteType) => void;
@@ -26,11 +27,13 @@ const AddNote: React.FC<AddNoteProps> = ({
   onTextChange,
   onAddNote,
   colorNote = () => {},
+  archiveNote = () => {},
   trashNote = () => {}
 }) => {
   const [isAddNoteOpen, setIsAddNoteOpen] = useState(false);
   const [colorCardVisible, setColorCardVisible] = useState(false);
   const [selectedColor, setSelectedColor] = useState<string>("#FFFFFF"); // Default white color
+  const [isArchived, setIsArchived] = useState<boolean>(false); // New state for archive flag
   const addNoteRef = useRef<HTMLDivElement>(null);
   const colorButtonRef = useRef<HTMLDivElement>(null);
 
@@ -77,16 +80,19 @@ const AddNote: React.FC<AddNoteProps> = ({
   };
 
   const handleAddNote = () => {
-    const noteWithColor = { ...newNote, color: selectedColor };
+    const noteWithColor = { ...newNote, color: selectedColor, isArchived }; // Include isArchived flag
     onAddNote(noteWithColor);
     setSelectedColor("#FFFFFF"); 
+    setIsArchived(false); // Reset the archive state
+  };
+
+  const handleArchiveNote = () => {
+    setIsArchived(true); // Set the note to be archived
+    toggleCloseAddNote(); // Close the add note form and add the note
   };
 
   const handleTrashNote = () => {
-    // Assuming that newNote has a temporary ID or can be managed differently
-    // to ensure it doesn't clash with existing notes
     const tempNoteId = new Date().getTime();
-    const noteWithTempId = { ...newNote, id: tempNoteId };
     trashNote(tempNoteId);
     setIsAddNoteOpen(false);
   };
@@ -133,7 +139,7 @@ const AddNote: React.FC<AddNoteProps> = ({
               <button title="Image Upload">
                 <ImageOutlinedIcon fontSize="small" />
               </button>
-              <button title="Archive">
+              <button title="Archive" onClick={handleArchiveNote}>
                 <ArchiveOutlinedIcon fontSize="small" />
               </button>
               <button title="Delete" onClick={handleTrashNote}>

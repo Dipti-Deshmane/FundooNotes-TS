@@ -15,11 +15,12 @@ interface DashboardProps {
 const Dashboard: React.FC<DashboardProps> = (props) => {
   const [isMenuSidebar, setSidebarMenu] = useState<boolean>(false);
   const [notes, setNotes] = useState<NoteType[]>([]);
+  const [searchText, setSearchText] = useState('');
   const [newNote, setNewNote] = useState({
     title: '',
     description: ''
   });
-  const [pageTitle, setPageTitle] = useState('');
+
   const [layoutMode, setLayoutMode] = useState<'horizontal' | 'vertical'>('horizontal');
 
   const token = localStorage.getItem('token') || '';
@@ -27,6 +28,11 @@ const Dashboard: React.FC<DashboardProps> = (props) => {
   useEffect(() => {
     fetchNotes();
   }, []);
+
+  const filteredNotes = notes.filter(note =>
+    note.title.toLowerCase().includes(searchText.toLowerCase()) ||
+    note.description.toLowerCase().includes(searchText.toLowerCase())
+  );
 
   const handleNoteTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewNote({ ...newNote, title: e.target.value });
@@ -49,27 +55,15 @@ const Dashboard: React.FC<DashboardProps> = (props) => {
     }
   };
 
-  const addNote = async (note: NoteType) => {
-    if (note.title.trim() !== '' || note.description.trim() !== '') {
+  const addNote = async () => {
+    if (newNote.title.trim() !== '' || newNote.description.trim() !== '') {
       try {
-        await NoteServices.addNote({ ...note }, token);
+        await NoteServices.addNote({ ...newNote }, token);
         console.log('Successfully added');
         fetchNotes();
         setNewNote({ title: '', description: '' });
       } catch (error) {
         console.error('Error adding note:', error);
-      }
-    }
-  };
-
-  const toggleMenubar = () => {
-    setSidebarMenu(!isMenuSidebar);
-    const notesContainer = document.querySelector('.notes-container');
-    if (notesContainer) {
-      if (isMenuSidebar) {
-        notesContainer.classList.remove('shifted');
-      } else {
-        notesContainer.classList.add('shifted');
       }
     }
   };
@@ -104,8 +98,6 @@ const Dashboard: React.FC<DashboardProps> = (props) => {
       console.error('Error deleting note:', error);
     }
   };
- 
-  
 
   const handleColor = async (noteId: number, color: string) => {
     try {
@@ -121,52 +113,83 @@ const Dashboard: React.FC<DashboardProps> = (props) => {
     }
   };
 
-  const toggleLayoutMode = () => {
-    setLayoutMode(layoutMode === 'horizontal' ? 'vertical' : 'horizontal');
+  const handlePin = async (noteId: number) => {
+    try {
+      await NoteServices.pinNote([noteId], token);
+      fetchNotes();
+      console.log("Note is pinned");
+    } catch (error) {
+      console.error("Error pinning note:", error);
+    }
   };
 
+  const handleUnPin = async (noteId: number) => {
+    try {
+      await NoteServices.unPinNote([noteId], token);
+      fetchNotes();
+      console.log("Note is unpinned");
+    } catch (error) {
+      console.error("Error unpinning note:", error);
+    }
+  };
+
+  const handleSearch = (searchText: string) => {
+    setSearchText(searchText);
+  };
+
+
   return (
-    <div className='note-dashboard'>
-      <div className='App'>
-      <div className='main'>   
-        <Header toggleSidebar={toggleMenubar} pageTitle={pageTitle} toggleLayoutMode={toggleLayoutMode} layoutMode={layoutMode} />
-        <div className='containerr'>
-          <Sidebar isClosed={isMenuSidebar} setPageTitle={setPageTitle} />
-          <div className={`notes-container ${isMenuSidebar ? 'shifted' : ''} ${layoutMode}`}>
-            <AddNote
-              newNote={newNote}
-              onTitleChange={handleNoteTitleChange}
-              onTextChange={handleNoteTextChange}
-              onAddNote={addNote}
-              colorNote={handleColor}
-              archiveNote={handleArchive}
-              trashNote={handleTrash}
-            />
-            {/* Displaying notes */}
-            <div className={`pinned-notes-container ${layoutMode}`}>
-              {notes.length === 0 ? (
-                <div className='BackImg'>
-                  <LightbulbOutlinedIcon style={{ fontSize: 120 }} />
-                  <p className='noNote'>Note you add appear here</p>
-                </div>
-              ) : (
-                notes
-                  .filter((note) => !note.isArchived && !note.isDeleted)
-                  .map((note) => (
-                    <Note
-                      key={note.id}
-                      note={note}
-                      updateNote={updateNote}
-                      archiveNote={handleArchive}
-                      trashNote={handleTrash}
-                      colorNote={handleColor}
-                    />
-                  ))
-              )}
-            </div>
+    <div className="dashboard-container">
+   <div className={`notes-container ${!isMenuSidebar ? 'shifted' : ''}`}>
+        <AddNote
+          newNote={newNote}
+          onTitleChange={handleNoteTitleChange}
+          onTextChange={handleNoteTextChange}
+          onAddNote={addNote}
+          colorNote={handleColor}
+          archiveNote={handleArchive}
+          trashNote={handleTrash}
+        />
+        <div className="note-dashboard">
+          <div className="pinned-notes-container">
+            {filteredNotes
+              .filter((note) => note.isPined)
+              .map((note) => (
+                <Note
+                  key={note.id}
+                  note={note}
+                  updateNote={updateNote}
+                  archiveNote={handleArchive}
+                  trashNote={handleTrash}
+                  colorNote={handleColor}
+                  pinNote={handlePin}
+                  unpinNote={handleUnPin}
+                />
+              ))}
+          </div>
+          <div className="unpinned-notes-container">
+            {filteredNotes
+              .filter((note) => !note.isPined && !note.isArchived) 
+              .map((note) => (
+                <Note
+                  key={note.id}
+                  note={note}
+                  updateNote={updateNote}
+                  archiveNote={handleArchive}
+                  trashNote={handleTrash}
+                  colorNote={handleColor}
+                  pinNote={handlePin}
+                  unpinNote={handleUnPin}
+                />
+              ))}
           </div>
         </div>
-        </div>
+        {filteredNotes.length === 0 && (
+          <div className="no-notes-placeholder">
+            <LightbulbOutlinedIcon />
+            <p>Notes you add appear here</p>
+          </div>
+        )}
       </div>
     </div>
   );

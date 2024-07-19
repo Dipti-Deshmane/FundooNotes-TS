@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import FundooLogo from '../Assets/FundooLogo.png';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import { ViewStreamOutlined as ViewStreamOutlinedIcon } from '@mui/icons-material';
@@ -19,13 +19,16 @@ interface HeaderProps {
   pageTitle: string;
   toggleLayoutMode: () => void;
   layoutMode: 'vertical' | 'horizontal';
+  onSearch: (searchText: string) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ toggleSidebar, pageTitle, toggleLayoutMode, layoutMode }) => {
+const Header: React.FC<HeaderProps> = ({ toggleSidebar, pageTitle, toggleLayoutMode, layoutMode ,onSearch}) => {
   const [showUserCard, setShowUserCard] = useState(false);
   const [username, setUsername] = useState('');
   const [profilePicture, setProfilePicture] = useState<string | null>(null);
   const [showSearchInput, setShowSearchInput] = useState(false);
+  const firstName = localStorage.getItem('firstName');
+  const email = localStorage.getItem('email');
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
 
@@ -79,6 +82,18 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, pageTitle, toggleLayoutM
     }
   };
 
+  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onSearch(event.target.value);
+  };
+
+  useEffect(() => {
+    setUsername(`${email}`);
+}, [email]);
+
+  const handleRefresh = () => {
+    window.location.reload(); 
+  };
+
   return (
     <header className="header">
       <div className="mainMenu">
@@ -92,17 +107,25 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, pageTitle, toggleLayoutM
         <img src={FundooLogo} alt="Fundoo Logo" className="logo" />
         <h1 className="logo-text">{pageTitle}</h1>
       </div>
+
       <div className={`search-container ${showSearchInput ? 'active' : ''}`}>
         <SearchIcon className="search-icon" onClick={() => setShowSearchInput(true)} />
-        <input type="text" placeholder="Search..." className={`search-input ${showSearchInput ? 'active' : ''}`} />
+        <input
+          type="text"
+          placeholder="Search..."
+          className={`search-input ${showSearchInput ? 'active' : ''}`}
+          onChange={handleSearchInputChange}
+        />
       </div>
+
       <div className='spacer'></div>
       <div className='icons'>
+      <div onClick={handleRefresh}>
         <RefreshOutlinedIcon
           className="refresh"
           fontSize="medium"
           style={{ cursor: 'pointer', color: '#555' }}
-        />
+        /></div>
         <div className="layout-toggle" onClick={toggleLayoutMode}>
           <ViewStreamOutlinedIcon fontSize="medium" style={{ cursor: 'pointer', color: '#555' }} />
         </div>
@@ -115,28 +138,28 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, pageTitle, toggleLayoutM
       <div className='lastpartOfheader'>
         <AppsRoundedIcon className='squareIcon' style={{ cursor: 'pointer', color: '#555' }}
           fontSize="medium"/>
-        <div className="user-circle" onClick={toggleUserCard}>
-          {profilePicture ? (
-            <img src={profilePicture} alt="Profile" className="profile-picture" />
-          ) : (
-            firstInitial
-          )}
-        </div>
+       
+       <div className="user-circle" onClick={toggleUserCard}>
+        {profilePicture ? (
+        <>
+         <img src={profilePicture} alt="Profile" className="profile-picture" />
+        </>
+        ) : <span>{firstInitial}</span> }
       </div>
       {showUserCard && (
         <div className="user-card">
           <div className="user-info">
-            <p>diptiborke@gmail.com</p>
+            <p className='username'>{username}</p>
           </div>
           <div className="profile-button-container">
             <label htmlFor="profile-picture-input" className="profile-picture-label">
               {profilePicture ? (
                 <img src={profilePicture} alt="Profile" className="profile-picture" />
               ) : (
-                firstInitial
+                <span className='usernameInitial'> {firstInitial} </span>
               )}
             </label>
-            <input
+      <input
               className="pic"
               type="file"
               accept="image/*"
@@ -157,6 +180,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, pageTitle, toggleLayoutM
           </div>
         </div>
       )}
+      </div>
     </header>
   );
 };

@@ -8,17 +8,13 @@ import "./../Styles/trash.scss";
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 
 const Archive: React.FC =()=>{
-  const [pageTitle, setPageTitle] = useState('');
+
       const [archivedNotes, setArchivedNotes] = useState<NoteType[]>([]);
       const token = localStorage.getItem("token") || "";
       const [isMenuSidebar, setSidebarMenu] = useState<boolean>(false);
       const [layoutMode, setLayoutMode] = useState<'horizontal' | 'vertical'>('horizontal');
 
-     
-      const toggleMenubar = () => {
-        setSidebarMenu(!isMenuSidebar);
-      };
-    
+
       const fetchArchivedNotes = async () => {
         try {
           const response = await NoteServices.fetchArchiveNotes(token);
@@ -55,22 +51,14 @@ const Archive: React.FC =()=>{
         }
       };
   
-      
-  const toggleLayoutMode = () => {
-    setLayoutMode(layoutMode === 'horizontal' ? 'vertical' : 'horizontal');
-  };
-
-
     
       return (
         <div className="note-dashboard">
           <div className="App">
-          <Header toggleSidebar={toggleMenubar} pageTitle={pageTitle} toggleLayoutMode={toggleLayoutMode} layoutMode={layoutMode} />
-          <div className="main">
-          <Sidebar isClosed={isMenuSidebar} setPageTitle={setPageTitle} />
+          <div className="main">     
           <div className="trash-container">
           <div className={`notes-container ${isMenuSidebar ? 'shifted' : ''} ${layoutMode}`}>
-          <div className={`Trash-notes-container ${layoutMode}`}>
+          <div className={`trash-notes-container ${layoutMode}`}>
                   {archivedNotes.length === 0 ? (
                     <div className="BackImg">
                    <ArchiveOutlinedIcon style={{fontSize:120}}/>

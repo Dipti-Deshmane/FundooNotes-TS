@@ -1,6 +1,8 @@
 import React from "react";
 import { Note as NoteType } from "./../Services/NoteServices";
 import NoteButtons from "./NoteButtons";
+import { PushPinOutlined, PushPin } from "@mui/icons-material";
+import { Tooltip } from "@mui/material";
 
 export interface NoteProps {
   note: NoteType;
@@ -10,6 +12,8 @@ export interface NoteProps {
   unarchiveNote?: (noteId: number) => void;
   isArchivedPage?: boolean;
   colorNote?: (noteId: number, color: string) => void;
+  pinNote?: (noteId: number) => void;
+  unpinNote?: (noteId: number) => void;
 }
 
 const Note: React.FC<NoteProps> = ({
@@ -20,6 +24,8 @@ const Note: React.FC<NoteProps> = ({
   unarchiveNote = () => {},
   isArchivedPage = false,
   colorNote = () => {},
+  pinNote = () => {},
+  unpinNote = () => {},
 }) => {
   const handleBlur = (field: "title" | "description", value: string) => {
     if (note.id !== undefined) {
@@ -51,6 +57,12 @@ const Note: React.FC<NoteProps> = ({
     }
   };
 
+  const handlePinClick = () => {
+    if (note.id !== undefined) {
+      note.isPined ? unpinNote?.(note.id) : pinNote?.(note.id);
+    }
+  };
+
   return (
     <div className="header-card">
       <div className="note-card">
@@ -71,6 +83,9 @@ const Note: React.FC<NoteProps> = ({
               onBlur={(e) => handleBlur("description", e.currentTarget.innerText)}
             >
               {note.description}
+            </div>
+            <div className="pin-icon" onClick={handlePinClick}>
+              {note.isPined ? <PushPin /> : <PushPinOutlined />}
             </div>
             {note.id !== undefined && (
               <NoteButtons

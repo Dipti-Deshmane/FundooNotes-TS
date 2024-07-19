@@ -6,6 +6,7 @@ import Trash from '../Components/Trash';
 import Archive from '../Components/Archive';
 import AuthRoute from './AuthRouter';
 import ProtectedRoute from './ProtectedRouted';
+import Layout from '../Components/LayOut';
 const AppRouter = () => {
   
     return (
@@ -13,9 +14,12 @@ const AppRouter = () => {
            <Routes>
         <Route path="/" element={<AuthRoute><Login /></AuthRoute>} />
         <Route path="/signup" element ={<AuthRoute><SignUp /></AuthRoute>} />
+        <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
         <Route path='/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path='/Archive' element={<ProtectedRoute><Archive /></ProtectedRoute>} />
         <Route path='/Trash' element={<ProtectedRoute><Trash /></ProtectedRoute>} />
+        </Route>
+
     </Routes>
       </>
     );

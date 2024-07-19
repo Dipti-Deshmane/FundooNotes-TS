@@ -179,7 +179,15 @@
     }
     .accName{
       margin: 0;
-      padding:0
+      padding:0;
+      display: flex;
+      justify-content: center;
+  
+    }
+    .usernameInitial{
+      display:flex;
+      justify-content: center;
+      margin-top: 25%;
     }
 
     .account-actions {

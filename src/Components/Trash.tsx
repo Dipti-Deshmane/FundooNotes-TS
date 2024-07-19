@@ -11,7 +11,7 @@ const Trash: React.FC = () => {
   const [trashedNotes, setTrashedNotes] = useState<NoteType[]>([]);
   const token = localStorage.getItem("token") || "";
   const [isMenuSidebar, setSidebarMenu] = useState<boolean>(false);
-  const [pageTitle, setPageTitle] = useState('');
+ 
   const [layoutMode, setLayoutMode] = useState<'horizontal' | 'vertical'>('horizontal');
 
      
@@ -58,20 +58,14 @@ const Trash: React.FC = () => {
     }
   };
 
-  const toggleLayoutMode = () => {
-    setLayoutMode(layoutMode === 'horizontal' ? 'vertical' : 'horizontal');
-  };
-
 
   return (
     <div className="note-dashboard">
       <div className="App">
-      <Header toggleSidebar={toggleMenubar} pageTitle={pageTitle} toggleLayoutMode={toggleLayoutMode} layoutMode={layoutMode} />
-      <div className="main">
-        <Sidebar isClosed={isMenuSidebar} setPageTitle={setPageTitle} />
-        <div className="trash-container">
+    <div className="main">
+       <div className="trash-container">
         <div className={`notes-container ${isMenuSidebar ? 'shifted' : ''} ${layoutMode}`}>
-              <div className={`Trash-notes-container ${layoutMode}`}>
+              <div className={`trash-notes-container ${layoutMode}`}>
                 {trashedNotes.length === 0 ? (
                  <div className="BackImg">
                    <DeleteOutlinedIcon style={{fontSize:120}}/>
