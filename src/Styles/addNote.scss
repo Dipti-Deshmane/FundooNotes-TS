@@ -19,7 +19,7 @@ $font-family-calibri: Calibri;
   font-size: xx-small;
   &:hover {
     color: #000;
-    background-color: $hover-bg-color;
+    
   }
   svg {
     color: $primary-color;
@@ -56,6 +56,10 @@ $font-family-calibri: Calibri;
 .closeIcon {
   width: 20%;
   @include close-icon-styles;
+  &:hover {
+    background-color: #F8F8FF;
+    
+  }
 }
 
 .take-note {

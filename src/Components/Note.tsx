@@ -19,8 +19,8 @@ interface NoteProps {
 
 const Note: React.FC<NoteProps> = ({
   note,
-  updateNote = () => {},
   layoutMode,
+  updateNote = () => {},
   archiveNote = () => {},
   trashNote = () => {},
   unarchiveNote = () => {},
@@ -64,12 +64,11 @@ const Note: React.FC<NoteProps> = ({
     if (note.id !== undefined) {
       note.isPined ? unpinNote?.(note.id) : pinNote?.(note.id);
     }
+    console.log(layoutMode)
   };
 
   return (
-    
-    <div className={`header-card ${layoutMode}`}>
-      <div className="note-card">
+      <div className={`note-card ${layoutMode}`}>
         <div className="card" style={{ backgroundColor: note.color }}>
           <div className="note-card-body">
             <div
@@ -104,7 +103,6 @@ const Note: React.FC<NoteProps> = ({
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

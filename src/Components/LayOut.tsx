@@ -16,6 +16,7 @@ const Layout: React.FC = () => {
   };
 
   const toggleLayoutMode = () => {
+    console.log("layout changed")
     setLayoutMode(layoutMode === 'horizontal' ? 'vertical' : 'horizontal');
   };
 
@@ -37,7 +38,7 @@ const Layout: React.FC = () => {
  <div className="containerr">
         <Sidebar isClosed={isMenuSidebar} setPageTitle={setPageTitle} />
         <div className={`notes-container ${isMenuSidebar ? 'shifted' : ''}`} >
-          <Outlet />
+          <Outlet context={{ layoutMode, toggleLayoutMode, searchText }}  />
         </div>
       </div>
       </div>

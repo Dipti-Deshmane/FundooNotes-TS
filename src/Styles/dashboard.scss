@@ -65,10 +65,14 @@
     padding: 5px;
   }
  
+
+
+
+
 .add-note {
   background-color: #fff;
   border-radius: 8px;
-  margin-bottom: 1%;
+  margin-bottom: 2%;
   transition: box-shadow 0.3s ease;
   box-shadow: 1px 1px 1px 1.5px rgba(0, 0, 0, 0.3);
   width: 49%;
@@ -126,9 +130,19 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  flex-direction: column;
   overflow: visible;
 }
 
+.notes-container{
+  .note-head-container {
+  &.vertical {
+    margin-left: 12px;
+  }
+  &.horizontal {
+    margin-left: 164px;
+  }
+ }}
 .notes-container.shifted{
   .pinned-notes-container,.unpinned-notes-container{
     width: 121%;
@@ -156,26 +170,19 @@
   position: relative;
   flex: 0 0 auto;
   border: 1px solid #c8c8c8;
-  &.vertical {
-    margin-left: 0;
-    width: 240px;
-    margin-right: 20px;
-  }
-  &.horizontal {
-    margin-left: 209px;
-    width: 57.6%;
-    margin-right: 12px;
-  }
+  margin-right: 1%;
+
+ 
 
   .card {
-    width: 220px;
+    width: 98%;
     min-height: 117px;
     height: auto;
     flex-direction: column;
     justify-content: space-between;
     position: relative; // Position the card relative for absolute positioning of buttons
     border-radius: 8px;
-    padding: 5px;
+   padding: 1%;
   }
 
   .note-card-body {
@@ -205,6 +212,18 @@
     padding: 3%;
     text-align: start;
   }
+
+
+ 
+.noNote{
+  color: #5f6368;
+  cursor: default;
+  font-family: "Google Sans", Roboto, Arial, sans-serif;
+  font-size: 1.375rem;
+  font-weight: 400;
+ 
+}
+
 
   .label-button {
     background-color: transparent;
@@ -264,6 +283,18 @@
   &:hover .button-container-wrapper {
     display: block;
   }
+  &.vertical {
+    margin-left: 0;
+    width: 230px;
+    margin-right: 20px;
+  }
+  &.horizontal {
+    margin-left: 148px;
+    width: 57.6%;
+    margin-right: 12px;
+   
+  }
+  
 }
 
 @media only screen and (min-width: 1025px) and (max-width: 1440px) {

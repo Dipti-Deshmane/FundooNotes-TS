@@ -4,7 +4,6 @@ import PaletteOutlinedIcon from "@mui/icons-material/PaletteOutlined";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import ColourCard from "./ColourCard";
 import { Note as NoteType } from "./../Services/NoteServices";
@@ -12,7 +11,6 @@ import "./../Styles/addNote.scss";
 
 interface AddNoteProps {
   newNote: NoteType;
-  
   onTitleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onTextChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   onAddNote: (note: NoteType) => void;
@@ -26,8 +24,6 @@ const AddNote: React.FC<AddNoteProps> = ({
   onTitleChange,
   onTextChange,
   onAddNote,
-  colorNote = () => {},
-  archiveNote = () => {},
   trashNote = () => {}
 }) => {
   const [isAddNoteOpen, setIsAddNoteOpen] = useState(false);
@@ -68,22 +64,21 @@ const AddNote: React.FC<AddNoteProps> = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  });
+  }, []);
 
   const handleColorButtonClick = () => {
     setColorCardVisible(!colorCardVisible);
   };
 
   const handleColorSelection = (color: string) => {
+    console.log("color selected");
     setSelectedColor(color);
     setColorCardVisible(false);
   };
-
   const handleAddNote = () => {
     const noteWithColor = { ...newNote, color: selectedColor, isArchived }; // Include isArchived flag
     onAddNote(noteWithColor);
-    setSelectedColor("#FFFFFF"); 
-    setIsArchived(false); // Reset the archive state
+    setSelectedColor("#FFFFFF"); // Reset to default color after adding the note
   };
 
   const handleArchiveNote = () => {
@@ -98,25 +93,26 @@ const AddNote: React.FC<AddNoteProps> = ({
   };
 
   return (
-    <div ref={addNoteRef} className="add-note">
+    <div ref={addNoteRef} className="add-note" style={{ backgroundColor: selectedColor }}>
       {isAddNoteOpen ? (
         <>
           <div>
-            <input
-              type="text"
-              style={{ fontSize: 18 }}
-              placeholder="Title"
-              value={newNote.title}
-              onChange={onTitleChange}
-              autoFocus
-            />
+             <input
+            type="text"
+            placeholder="Title"
+            value={newNote.title}
+            onChange={onTitleChange}
+            autoFocus
+            style={{ backgroundColor: selectedColor }}
+          />
           </div>
           <div>
             <textarea
               placeholder="Take a note..."
               value={newNote.description}
               onChange={onTextChange}
-              autoFocus
+              style={{ backgroundColor: selectedColor }}
+          
             />
           </div>
 
@@ -128,7 +124,7 @@ const AddNote: React.FC<AddNoteProps> = ({
               <button title="Collaborator">
                 <PersonAddAltIcon fontSize="small" />
               </button>
-              <div ref={colorButtonRef} className="color-button-container" style={{marginRight:'2%'}}>
+              <div ref={colorButtonRef} className="color-button-container" style={{ marginRight: '2%' }}>
                 <button title="Background Options" onClick={handleColorButtonClick}>
                   <PaletteOutlinedIcon fontSize="small" />
                 </button>
@@ -147,9 +143,10 @@ const AddNote: React.FC<AddNoteProps> = ({
               </button>
             </div>
             <button
-              title="Close"
+             
               className="closeIcon"
               onClick={toggleCloseAddNote}
+              style={{ backgroundColor: selectedColor }}
             >
               Close
             </button>
