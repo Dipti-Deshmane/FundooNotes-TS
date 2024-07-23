@@ -37,8 +37,6 @@ const Dashboard = () => {
   const pinnedNotes = filteredNotes.filter((note) => note.isPined);
   const unpinnedNotes = filteredNotes.filter((note) => !note.isPined);
 
-
-
   const toggleMenubar = () => {
     setSidebarMenu(!isMenuSidebar);
   };
@@ -67,7 +65,6 @@ const Dashboard = () => {
       setNewNote({ title: "", description: "", color: "#FFFFFF" });
     }
   };
-
 
   const updateNote = async (id: number, updatedNote: NoteType) => {
     try {
@@ -137,9 +134,11 @@ const Dashboard = () => {
 
   return (
     <>
-     <div className="add-note-container" style={{ display: searchText.trim() !== "" ? "none" : "block" }}>
-      
-       <AddNote
+      <div
+        className="add-note-container"
+        style={{ display: searchText.trim() !== "" ? "none" : "block" }}
+      >
+        <AddNote
           newNote={newNote}
           onTitleChange={handleNoteTitleChange}
           onTextChange={handleNoteTextChange}
@@ -154,55 +153,20 @@ const Dashboard = () => {
         </div>
       ) : (
         <>
-     <div className="pinned-notes-container">
-          {pinnedNotes.length > 0 && searchText.trim() === "" && (
-            <h2
-              className="note-head-container"
-              style={{
-                marginLeft: layoutMode === "vertical" ? "12px" : "220px",
-              }}
-            >
-              PINNED
-            </h2>
-          )}
+          <div className="pinned-notes-container">
+            {pinnedNotes.length > 0 && searchText.trim() === "" && (
+              <h2
+                className="note-head-container"
+                style={{
+                  marginLeft: layoutMode === "vertical" ? "12px" : "220px",
+                }}
+              >
+                PINNED
+              </h2>
+            )}
             <>
-
-<div className="header-card">  
-        
-              {pinnedNotes.map((note) => (
-                <Note
-                  key={note.id}
-                  note={note}
-                  layoutMode={layoutMode}
-                  updateNote={updateNote}
-                  archiveNote={handleArchive}
-                  trashNote={handleTrash}
-                  colorNote={handleColor}
-                  pinNote={handlePin}
-                  unpinNote={handleUnPin}
-                />
-                
-              ))}
-                 </div>
-            </>
-          </div>
-          <div className="unpinned-notes-container">
-          {pinnedNotes.length > 0 && searchText.trim() === "" && (
-            <h2
-              className="note-head-container"
-              style={{
-                marginLeft: layoutMode === "vertical" ? "12px" : "220px",
-              }}
-            >
-              OTHERS
-            </h2>
-          )}
-         
-            <>
-            <div className="header-card">
-              {unpinnedNotes
-                .filter((note) => !note.isArchived && !note.isDeleted)
-                .map((note) => (
+              <div className="header-card">
+                {pinnedNotes.map((note) => (
                   <Note
                     key={note.id}
                     note={note}
@@ -215,11 +179,42 @@ const Dashboard = () => {
                     unpinNote={handleUnPin}
                   />
                 ))}
-                </div>
+              </div>
+            </>
+          </div>
+          <div className="unpinned-notes-container">
+            {pinnedNotes.length > 0 && searchText.trim() === "" && (
+              <h2
+                className="note-head-container"
+                style={{
+                  marginLeft: layoutMode === "vertical" ? "12px" : "220px",
+                }}
+              >
+                OTHERS
+              </h2>
+            )}
+
+            <>
+              <div className="header-card">
+                {unpinnedNotes
+                  .filter((note) => !note.isArchived && !note.isDeleted)
+                  .map((note) => (
+                    <Note
+                      key={note.id}
+                      note={note}
+                      layoutMode={layoutMode}
+                      updateNote={updateNote}
+                      archiveNote={handleArchive}
+                      trashNote={handleTrash}
+                      colorNote={handleColor}
+                      pinNote={handlePin}
+                      unpinNote={handleUnPin}
+                    />
+                  ))}
+              </div>
             </>
           </div>
         </>
-        
       )}
     </>
   );

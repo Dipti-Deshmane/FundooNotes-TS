@@ -54,3 +54,135 @@
   }
 }
 
+@media only screen and (min-width: 376px) and (max-width: 425px) {
+ 
+ 
+ 
+  .notes-container.shifted .add-note {
+    margin-left: 0;
+    margin-top: 20%;
+  }
+ 
+  .note-card .card {
+    width: 313px;
+    min-height: 101px;
+    padding: 1%;
+  }
+  .add-note {
+    width: 100%;
+    align-items: center;
+    margin-left: 0;
+  }
+
+  .note-card .button-container {
+    display: flex;
+    justify-content: left;
+    padding: 0;
+  }
+  .note-card .card-title {
+    font-size: 14px;
+    padding: 2%;
+  }
+  .note-card .card-text {
+    font-size: 14px;
+    padding: 2%;
+  }
+  .button-container svg {
+    font-size: medium;
+  }
+}
+
+@media only screen and (min-width: 321px) and (max-width: 375px) {
+  .notes-container.shifted {
+    margin-left: 17%;
+
+    z-index: 3;
+  }
+  .notes-container.shifted .add-note {
+    margin-left: 0;
+    margin-top: 20%;
+  }
+  .header .user-circle {
+    font-size: 14px;
+  }
+
+  .note-card .card {
+    width: 290px;
+    min-height: 101px;
+    padding: 1%;
+  }
+  .mediasidebar.collapsed .sidebar {
+    padding-left: 0;
+    width: 22%;
+  }
+  .add-note {
+    width: 100%;
+    align-items: center;
+    margin-left: 0;
+  }
+
+  .mediasidebar.collapsed .sidebar-options .option-icon {
+    margin-left: 11px;
+  }
+  .note-card .button-container {
+    display: flex;
+    justify-content: left;
+    padding: 0;
+  }
+  .note-card .card-title {
+    font-size: 14px;
+    padding: 2%;
+  }
+  .note-card .card-text {
+    font-size: 14px;
+    padding: 2%;
+  }
+  .button-container svg {
+    font-size: medium;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .notes-container.shifted .add-note {
+    margin-left: 0;
+    margin-top: 20%;
+  }
+  .header .user-circle {
+    font-size: 14px;
+  }
+
+  .button-container svg {
+    font-size: medium;
+  }
+
+  .notes-container.shifted {
+    margin-left: 17%;
+    z-index: 3;
+  }
+  .note-card .card {
+    width: 253px;
+    min-height: 99px;
+    padding: 0%;
+  }
+
+  .add-note {
+    width: 100%;
+    align-items: center;
+    margin-left: 0;
+  }
+  .note-card .button-container {
+    display: flex;
+    justify-content: left;
+    padding: 0;
+  }
+  .note-card .card-title {
+    font-size: 14px;
+    padding: 2%;
+  }
+  .note-card .card-text {
+    font-size: 14px;
+    padding: 2%;
+  }
+}
+
+

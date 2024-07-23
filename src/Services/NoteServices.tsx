@@ -7,7 +7,7 @@ export interface Note {
   description: string;
   isArchived?: boolean;
   isDeleted?: boolean;
-  color?:string;
+  color?: string;
   [key: string]: any;
 }
 
@@ -16,7 +16,6 @@ interface ApiResponse<T> {
 }
 
 const NoteServices = {
-
   fetchNotes: async (token: string): Promise<{ data: { data: Note[] } }> => {
     const response = await axios.get(`${base_url}/notes/getNotesList`, {
       headers: {
@@ -27,21 +26,16 @@ const NoteServices = {
   },
 
   addNote: async (newNote: Note, token: string): Promise<Note> => {
-    try {
-      const response: ApiResponse<Note> = await axios.post(
-        `${base_url}/notes/addNotes`,
-        newNote,
-        {
-          headers: {
-            Authorization: `${token}`,
-          },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error in adding note", error);
-      throw error;
-    }
+    const response: ApiResponse<Note> = await axios.post(
+      `${base_url}/notes/addNotes`,
+      newNote,
+      {
+        headers: {
+          Authorization: `${token}`,
+        },
+      }
+    );
+    return response.data;
   },
 
   updateNote: async (noteId: number, updatedNote: Note, token: string): Promise<void> => {
@@ -54,102 +48,95 @@ const NoteServices = {
       description: updatedNote.description,
     }, config);
   },
-  
-setNoteToArchive : (noteIdList: number[], token: string) => {
-  return axios.post(`${base_url}/notes/archiveNotes`, {
-    noteIdList,
-    isArchived: true
-  }, {
-    headers: { Authorization: token },
-  });
-},
-setNoteToUnArchive : (noteIdList: number[], token: string) => {
-  return axios.post(`${base_url}/notes/archiveNotes`, {
-    noteIdList,
-    isArchived: false
-  }, {
-    headers: { Authorization: token },
-  });
-},
-pinNote : (noteIdList: number[], token: string) => {
-  return axios.post(`${base_url}/notes/pinUnpinNotes`, {
-    noteIdList,
-    isPined: true
-  }, {
-    headers: { Authorization: token },
-  });
-},
 
-unPinNote : (noteIdList: number[], token: string) => {
-  return axios.post(`${base_url}/notes/pinUnpinNotes`, {
-    noteIdList,
-    isPined: false
-  }, {
-    headers: { Authorization: token },
-  });
-},
+  setNoteToArchive: (noteIdList: number[], token: string) => {
+    return axios.post(`${base_url}/notes/archiveNotes`, {
+      noteIdList,
+      isArchived: true,
+    }, {
+      headers: { Authorization: token },
+    });
+  },
 
-setNoteToTrash : (noteIdList: number[], token: string) => {
-  return axios.post(`${base_url}/notes/trashNotes`, {
-    noteIdList,
-    isDeleted: true
-  }, {
-    headers: { Authorization: token },
-  });
-},
-deleteNoteForever : (noteIdList: number[], token: string) => {
-  return axios.post(`${base_url}/notes/deleteForeverNotes`, {
-    noteIdList,
-    isDeleted: true
-  }, {
-    headers: { Authorization: token },
-  });
-},
+  setNoteToUnArchive: (noteIdList: number[], token: string) => {
+    return axios.post(`${base_url}/notes/archiveNotes`, {
+      noteIdList,
+      isArchived: false,
+    }, {
+      headers: { Authorization: token },
+    });
+  },
 
-setNoteToUnTrash : (noteIdList: number[], token: string) => {
-  return axios.post(`${base_url}/notes/trashNotes`, {
-    noteIdList,
-    isDeleted: false
-  }, {
-    headers: { Authorization: token },
-  });
-},
+  pinNote: (noteIdList: number[], token: string) => {
+    return axios.post(`${base_url}/notes/pinUnpinNotes`, {
+      noteIdList,
+      isPined: true,
+    }, {
+      headers: { Authorization: token },
+    });
+  },
 
-setColor: async (noteIdList: number[], token: string, color: string) => {
-  try {
+  unPinNote: (noteIdList: number[], token: string) => {
+    return axios.post(`${base_url}/notes/pinUnpinNotes`, {
+      noteIdList,
+      isPined: false,
+    }, {
+      headers: { Authorization: token },
+    });
+  },
+
+  setNoteToTrash: (noteIdList: number[], token: string) => {
+    return axios.post(`${base_url}/notes/trashNotes`, {
+      noteIdList,
+      isDeleted: true,
+    }, {
+      headers: { Authorization: token },
+    });
+  },
+
+  deleteNoteForever: (noteIdList: number[], token: string) => {
+    return axios.post(`${base_url}/notes/deleteForeverNotes`, {
+      noteIdList,
+      isDeleted: true,
+    }, {
+      headers: { Authorization: token },
+    });
+  },
+
+  setNoteToUnTrash: (noteIdList: number[], token: string) => {
+    return axios.post(`${base_url}/notes/trashNotes`, {
+      noteIdList,
+      isDeleted: false,
+    }, {
+      headers: { Authorization: token },
+    });
+  },
+
+  setColor: async (noteIdList: number[], token: string, color: string) => {
     await axios.post(
       `${base_url}/notes/changesColorNotes`,
       { noteIdList, color },
       { headers: { Authorization: token } }
     );
-  } catch (error) {
-    console.error("Error in setting note color", error);
-    throw error;
-  }
-},
+  },
 
+  fetchTrashNotes: async (token: string): Promise<{ data: { data: Note[] } }> => {
+    const response = await axios.get(`${base_url}/notes/getTrashNotesList`, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+    return response.data;
+  },
 
-
-fetchTrashNotes: async (token: string): Promise<{ data: { data: Note[] } }> => {
-  const response = await axios.get(`${base_url}/notes/getTrashNotesList`, {
-    headers: {
-      Authorization: `${token}`,
-    },
-  });
-  return response.data;
-},
-
-fetchArchiveNotes: async (token: string): Promise<{ data: { data: Note[] } }> => {
-  const response = await axios.get(`${base_url}/notes/getArchiveNotesList`, {
-    headers: {
-      Authorization: `${token}`,
-    },
-  });
-  return response.data;
-},
-
+  fetchArchiveNotes: async (token: string): Promise<{ data: { data: Note[] } }> => {
+    const response = await axios.get(`${base_url}/notes/getArchiveNotesList`, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+    return response.data;
+  },
 };
-
-
 
 export default NoteServices;

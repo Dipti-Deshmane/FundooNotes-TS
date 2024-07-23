@@ -34,10 +34,10 @@
 
 
 .notes-container {
-  top: 12%;
+  margin-top: 5%;
   margin-bottom: 10px;
-  margin-left: 24%;
-  width: 79%;
+  margin-left: 25%;
+  width: 76%;
   flex-grow: 1;
   transition: margin-left 0.3s ease, z-index 0.3s ease;
   position: relative;
@@ -72,13 +72,14 @@
 .add-note {
   background-color: #fff;
   border-radius: 8px;
+
   margin-bottom: 2%;
   transition: box-shadow 0.3s ease;
   box-shadow: 1px 1px 1px 1.5px rgba(0, 0, 0, 0.3);
   width: 49%;
   align-items: center;
   margin-left: 28%;
-  margin-top: 8%;
+  margin-top: 1%;
 
   &:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -171,7 +172,7 @@
   flex: 0 0 auto;
   border: 1px solid #c8c8c8;
   margin-right: 1%;
-
+  width: 220px;
  
 
   .card {
@@ -325,6 +326,13 @@
 }
 
 @media only screen and (min-width: 376px) and (max-width: 425px) {
+  .notes-container.shifted .add-note {
+    margin-left: 0;
+    margin-top: 20%;
+  }
+  .header .user-circle {
+    font-size: 14px;
+  }
   .notes-container.shifted {
     margin-left: 17%;
 
@@ -336,7 +344,7 @@
     padding: 1%;
   }
   .add-note {
-    width: 108%;
+    width: 100%;
     align-items: center;
     margin-left: 0;
   }
@@ -365,6 +373,14 @@
 
     z-index: 3;
   }
+  .notes-container.shifted .add-note {
+    margin-left: 0;
+    margin-top: 20%;
+  }
+  .header .user-circle {
+    font-size: 14px;
+  }
+
   .note-card .card {
     width: 290px;
     min-height: 101px;
@@ -375,7 +391,7 @@
     width: 22%;
   }
   .add-note {
-    width: 114%;
+    width: 100%;
     align-items: center;
     margin-left: 0;
   }
@@ -402,12 +418,20 @@
 }
 
 @media only screen and (max-width: 320px) {
+  .notes-container.shifted .add-note {
+    margin-left: 0;
+    margin-top: 20%;
+  }
+  .header .user-circle {
+    font-size: 14px;
+  }
+
   .button-container svg {
     font-size: medium;
   }
+
   .notes-container.shifted {
     margin-left: 17%;
-
     z-index: 3;
   }
   .note-card .card {
@@ -417,7 +441,7 @@
   }
 
   .add-note {
-    width: 114%;
+    width: 100%;
     align-items: center;
     margin-left: 0;
   }
