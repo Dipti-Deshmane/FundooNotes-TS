@@ -59,7 +59,7 @@ const Archive: React.FC = () => {
   };
 
   return (
-    <div className={`trashed-notes-container`}>
+    <div className={`trash-notes-container`}>
          <div className="header-card">
       {archivedNotes.length === 0 ? (
         <div className="BackImg">

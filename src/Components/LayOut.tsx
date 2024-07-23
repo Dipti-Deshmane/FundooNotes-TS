@@ -7,7 +7,7 @@ import './../Styles/dashboard.scss';
 const Layout: React.FC = () => {
   const [isMenuSidebar, setSidebarMenu] = useState<boolean>(false);
   const [pageTitle, setPageTitle] = useState('');
-  const [layoutMode, setLayoutMode] = useState<'horizontal' | 'vertical'>('horizontal');
+  const [layoutMode, setLayoutMode] = useState<'vertical' | 'horizontal'>('vertical');
   const [searchText, setSearchText] = useState('');
   
   
@@ -17,7 +17,7 @@ const Layout: React.FC = () => {
 
   const toggleLayoutMode = () => {
     console.log("layout changed")
-    setLayoutMode(layoutMode === 'horizontal' ? 'vertical' : 'horizontal');
+    setLayoutMode(layoutMode === 'vertical' ? 'horizontal' : 'vertical');
   };
 
 

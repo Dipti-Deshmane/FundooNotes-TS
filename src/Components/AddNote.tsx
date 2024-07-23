@@ -49,6 +49,9 @@ const AddNote: React.FC<AddNoteProps> = ({
       addNoteRef.current &&
       !addNoteRef.current.contains(event.target as Node)
     ) {
+      if (newNote.title || newNote.description) {
+        handleAddNote();
+      }
       setIsAddNoteOpen(false);
     }
     if (
@@ -58,13 +61,12 @@ const AddNote: React.FC<AddNoteProps> = ({
       setColorCardVisible(false);
     }
   };
-
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [newNote]);
 
   const handleColorButtonClick = () => {
     setColorCardVisible(!colorCardVisible);

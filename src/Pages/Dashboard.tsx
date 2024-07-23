@@ -19,7 +19,7 @@ const Dashboard = () => {
   const [pageTitle, setPageTitle] = useState("");
   const token = localStorage.getItem("token") || "";
   const { layoutMode, toggleLayoutMode, searchText } = useOutletContext<{
-    layoutMode: "vertical" | "horizontal";
+    layoutMode: "horizontal" | "vertical";
     toggleLayoutMode: () => void;
     searchText: string;
   }>();

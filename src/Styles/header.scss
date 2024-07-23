@@ -267,6 +267,10 @@
     .header .user-circle {
       width: 30%;
       height: 53%;
+    
+    }
+    .header .user-circle span{
+      font-size: medium;
     }
 
     .layout-toggle{
@@ -327,6 +331,38 @@
     .header .mainMenu {
       width: 5.2%;
     }
+    
+    .header .user-card {
+      width: 41%;
+      padding: 12px;
+      right: 9%;
+    }
+  
+    .header .user-card .user-info {
+      font-size: 12px;
+      color: #36454F;
+      text-align: center;
+  }
+  .header .user-card .profile-button-container .profile-picture-label {
+    width: 36px;
+    height: 35px;
+  }
+  .header .user-card .usernameInitial {
+    display: flex;
+    justify-content: center;
+    margin-top: 15%;}
+    
+.header .user-card .accName {
+  font-size: smaller;
+}
+.header .user-card .account-actions .add-account-button, .header .user-card .account-actions .sign-out-button {
+
+  padding: 10px 10px;
+
+  font-size: 9px;
+
+}
+
   }
   
 @media only screen and (min-width: 321px) and (max-width: 375px) {
@@ -348,6 +384,9 @@
       height: 74%;
     }
 
+    .header .user-circle span{
+      font-size: medium;
+    }
     .layout-toggle{
       margin-top: 6%;
       display: none;
@@ -404,12 +443,48 @@
     .header .mainMenu {
       width: 5.2%;
     }
+
+    
+    .header .user-card {
+      width: 41%;
+      padding: 12px;
+      right: 9%;
+    }
+  
+    .header .user-card .user-info {
+      font-size: 11px;
+      color: #36454F;
+      text-align: center;
+  }
+  .header .user-card .profile-button-container .profile-picture-label {
+    width: 36px;
+    height: 35px;
+  }
+  .header .user-card .usernameInitial {
+    display: flex;
+    justify-content: center;
+    margin-top: 15%;}
+    
+.header .user-card .accName {
+  font-size: smaller;
+}
+.header .user-card .account-actions .add-account-button, .header .user-card .account-actions .sign-out-button {
+
+  padding: 10px 10px;
+
+  font-size: 9px;
+
+}
+
   }
   
 
 @media only screen and (max-width: 320px) {
   .header {
     height: 33px;
+  }
+  .header .user-circle span{
+    font-size: medium;
   }
     .icons svg{
       font-size: large;
@@ -482,5 +557,34 @@
       width: 5.2%;
     }
 
+    .header .user-card {
+      width: 41%;
+      padding: 12px;
+      right: 9%;
+    }
   
+    .header .user-card .user-info {
+      font-size: 10px;
+      color: #36454F;
+      text-align: center;
+  }
+  .header .user-card .profile-button-container .profile-picture-label {
+    width: 36px;
+    height: 35px;
+  }
+  .header .user-card .usernameInitial {
+    display: flex;
+    justify-content: center;
+    margin-top: 15%;}
+    
+.header .user-card .accName {
+  font-size: smaller;
+}
+.header .user-card .account-actions .add-account-button, .header .user-card .account-actions .sign-out-button {
+
+  padding: 10px 10px;
+
+  font-size: 9px;
+
+}
 }

@@ -63,7 +63,7 @@ const Trash: React.FC = () => {
                   trashedNotes.map((note) => (
                     <div className="header-card" key={note.id}>
                       <div className="note-card">
-                        <div className="card">
+                        <div className="card" style={{backgroundColor:note.color}}>
                           <div className="note-card-body">
                             <div className="card-title">{note.title}</div>
                             <div className="card-text">{note.description}</div>
